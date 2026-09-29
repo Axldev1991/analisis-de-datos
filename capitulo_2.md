@@ -218,113 +218,75 @@ Ejemplo 2.4. Presentamos varios casos para el cálculo de las medidas previament
 definidas.
 - Para los datos {12, 12, 15, 18, 23}, se tiene que x
 e = 15, x = 16 y M o = 12.
-- Si los datos son {12, 12, 15, 17, 25, 25}, entonces x
-e =
-existen dos modas M o = 12 y M o = 25.
-- Las medidas para los datos de la Tabla 2.5 son x
-e=
-M o = 7.
-xi
+- Si los datos son {12, 12, 15, 17, 25, 25Ejemplo 2.4. Presentamos varios casos para el cálculo de las medidas previamente definidas.
 
-fi
+- Para los datos $\{12, 12, 15, 18, 23\}$, se tiene que $\tilde{x} = 15$, $\bar{x} = 16$ y $Mo = 12$.
+- Si los datos son $\{12, 12, 15, 17, 25, 25\}$, entonces $\tilde{x} = \frac{15 + 17}{2} = 16$, $\bar{x} = 17.67$ y existen dos modas $Mo = 12$ y $Mo = 25$.
+- Las medidas para los datos de la Tabla 2.5 son $\tilde{x} = \frac{x^{(25)} + x^{(26)}}{2} = \frac{3 + 7}{2} = 5$, $\bar{x} = 4.9$ y $Mo = 7$.
 
-Fi
+| $x_i$ | $f_i$ | $F_i$ |
+| :---: | :---: | :---: |
+| 2 | 10 | 10 |
+| 3 | 15 | 25 |
+| 7 | 20 | 45 |
+| 8 | 5 | 50 |
 
-
-
-
-15 + 17
-= 16, x = 17.67 y
-
-x(25) + x(26)
-3+7
-=
-, x = 4.9 y
-
-Tabla 2.5: Distribución de frecuencias: caso 1
-
-
+*Tabla 2.5: Distribución de frecuencias: caso 1*
 
 <!-- PDF Page 20 -->
 
+- Las medidas correspondientes a los datos que se presentan en la Tabla 2.6 son $\tilde{x} = x^{(25)} = 6$, $\bar{x} \cong 4.86$ y $Mo = 6$.
 
-- Las medidas correspondientes a los datos que se presentan en la Tabla 2.6 son
-(
-x
-e = x 25) = 6, x ∼
-= 4.86 y M o = 6.
-xi
+| $x_i$ | $f_i$ | $F_i$ |
+| :---: | :---: | :---: |
+| 1 | 10 | 10 |
+| 5 | 14 | 24 |
+| 6 | 21 | 45 |
+| 8 | 4 | 49 |
 
-fi
+*Tabla 2.6: Distribución de frecuencias: caso 2*
 
-Fi
+Las terceras columnas de las Tablas 2.5 y 2.6 contienen las frecuencias absolutas acumuladas $F_i$, que resultan de la suma de todas las frecuencias absolutas de las categorías menores de la variable, simbólicamente $F_k = \sum_{i=1}^{k} f_i$.
 
+**Media $\alpha$-podada**: se define como el promedio de los datos centrales recortando el $\alpha\%$ de los valores más grandes y el $\alpha\%$ de los valores más chicos. Se denota como $\bar{x}_\alpha$. Esta medida tiene como posiciones extremas a la media aritmética y a la mediana que se corresponden con $\alpha\% = 0$ y $\alpha\% = 50$ respectivamente.
 
+Ejemplo 2.5. Calculemos la media podada al 10% para los siguientes datos:  
+**2** – **4** – 5 – 6 – 7 – 7 – 8 – 8 – 8 – 9 – 9 – 10 – 13 – 14 – 14 – 14 – 15 – 15 – **15** – **25**.
 
-
-Tabla 2.6: Distribución de frecuencias: caso 2
-
-
-Las terceras columnas de las Tablas 2.5 y 2.6 contienen las frecuencias absolutas
-acumuladas Fi , que resultan de la suma de todas lasPfrecuencias absolutas de las categorías menores de la variable, simbólicamente Fk = ki=1 fi .
-Media α-podada: se define como el promedio de los datos centrales recortando el
-α% de los valores más grandes y el α% de los valores más chicos. Se denota como xα .
-Esta medida tiene como posiciones extremas a la media aritmética y a la mediana que
-se corresponden con α% = 0 y α% = 50 respectivamente.
-Ejemplo 2.5. Calculemos la media podada al 10% para los siguientes datos:
-2 − 4 − 5 − 6 − 7 − 7 − 8 − 8 − 8 − 9 − 9 − 10 − 13 − 14 − 14 − 14 − 15 − 15 − 15 − 25.
 Sin considerar los números en negrita,
-x0.10 =
 
-5 + 6 + 7 · 2 + 8 · 3 + 9 · 2 + 10 + 13 + 14 · 3 + 15 · 2
-= 10.125.
-
-
+$$\bar{x}_{0.10} = \frac{5 + 6 + 7 \cdot 2 + 8 \cdot 3 + 9 \cdot 2 + 10 + 13 + 14 \cdot 3 + 15 \cdot 2}{16} = 10.125.$$
 
 #### 2.2.2 Medidas de posición o estadísticos de orden
 
-Si bien hemos visto que la mediana es una medida de tendencia central, también puede
-pensarse como un estadístico de orden, dado que se calcula en función de los datos
+Si bien hemos visto que la mediana es una medida de tendencia central, también puede pensarse como un estadístico de orden, dado que se calcula en función de los datos ordenados.
 
-ordenados.
-Recordemos que los datos ordenados de menor a mayor se denotan como x(1) ≤
-x(2) ≤ · · · ≤ x(n) . Entonces x(1) es el valor mínimo observado y x(n) es el valor máximo
-observado. Estos son dos casos particulares de estadísticos de orden.
-Cuantiles: son ciertos valores del recorrido de la variable que permiten subdividir el
-conjunto de datos en partes iguales, todas formadas por la misma cantidad de observaciones. Los cuantiles pueden o no corresponder a valores observados. Los más usados
-son los cuartiles Q que dividen las observaciones en cuatro partes iguales, los deciles
+Recordemos que los datos ordenados de menor a mayor se denotan como $x^{(1)} \le x^{(2)} \le \dots \le x^{(n)}$. Entonces $x^{(1)}$ es el valor mínimo observado y $x^{(n)}$ es el valor máximo observado. Estos son dos casos particulares de estadísticos de orden.
 
-
+**Cuantiles**: son ciertos valores del recorrido de la variable que permiten subdividir el conjunto de datos en partes iguales, todas formadas por la misma cantidad de observaciones. Los cuantiles pueden o no corresponder a valores observados. Los más usados son los cuartiles $Q$ que dividen las observaciones en cuatro partes iguales, los deciles
 
 <!-- PDF Page 21 -->
 
+$D$ que lo hacen en diez partes iguales y los percentiles $P$ que lo hacen en 100 partes iguales.
 
-D que lo hacen en diez partes iguales y los percentiles P que lo hacen en 100 partes
-iguales.
-Cuartiles: cada una de las cuatro partes iguales en que dividen las observaciones
-contiene un cuarto o 25% de la información. Se denotan Q1 , Q2 y Q3 y se denominan
-primer, segundo y tercer cuartil. Observemos que el segundo cuartil coincide con la
-mediana.
-
+**Cuartiles**: cada una de las cuatro partes iguales en que dividen las observaciones contiene un cuarto o 25% de la información. Se denotan $Q_1$, $Q_2$ y $Q_3$ y se denominan primer, segundo y tercer cuartil. Observemos que el segundo cuartil coincide con la mediana.
 
 #### 2.2.3 Medidas de dispersión
 
-Las medidas de dispersión indican la variabilidad de los datos. La mayoría cuantifica el
-grado de concentración de los datos alrededor de una medida de posición. Presentaremos a continuación las medidas de dispersión más difundidas.
-Rango muestral: se define como la diferencia entre el valor máximo y el valor mínimo
-de la muestra, es decir,
-rg(x) = x(n) − x(1) .
-Si bien es una medida de cálculo sencillo, no resulta en general muy informativa. En la
-Figura 2.3 se pueden apreciar tres conjuntos de datos con el mismo rango pero diferente
-grado de concentración alrededor del centro.
+Las medidas de dispersión indican la variabilidad de los datos. La mayoría cuantifica el grado de concentración de los datos alrededor de una medida de posición. Presentaremos a continuación las medidas de dispersión más difundidas.
 
-P
-P
-P
-P P P
+**Rango muestral**: se define como la diferencia entre el valor máximo y el valor mínimo de la muestra, es decir,
 
-P P P
-P P P
+$$rg(x) = x^{(n)} - x^{(1)}.$$
+
+Si bien es una medida de cálculo sencillo, no resulta en general muy informativa. En la Figura 2.3 se pueden apreciar tres conjuntos de datos con el mismo rango pero diferente grado de concentración alrededor del centro.
+
+Figura 2.3: Variabilidad y rango
+![Figura 2.3: Variabilidad y rango](imagenes/img-000.png)
+
+**Varianza Muestral**: se define como el promedio de los cuadrados de las distancias de las observaciones a la media muestral; es decir,
+
+$$s_x^2 = \frac{1}{n - 1} \sum_{i=1}^{n} (x_i - \bar{x})^2.$$
 
 
 
