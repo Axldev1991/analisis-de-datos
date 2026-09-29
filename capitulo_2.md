@@ -428,125 +428,66 @@ la presencia de valores extremos (muy grandes o muy chicos).
 <!-- PDF Page 25 -->
 
 
-Coeficiente de asimetría de Pearson: mide la asimetría cuantificando la separación
-entre la moda respecto de la desviación estándar, siendo
-skP (x) =
+**Coeficiente de asimetría de Pearson**: mide la asimetría cuantificando la separación
+entre la moda respecto de la desviación estándar, siendo:
 
-x − M o(x)
-.
-sx
+$$sk_P(x) = \frac{\bar{x} - Mo(x)}{s_x}.$$
 
 Este coeficiente es menos usual dado que requiere que la distribución sea unimodal.
-Coeficiente de asimetría de Bowley: toma como referencia los cuartiles para determinar si la distribución es simétrica o no, focalizando en el 50% de los valores centrales
-de la distribución. Su expresión es
-skB (x) =
 
-q3 + q1 − 2e
-x
-(q3 − q2 ) + (q1 − q2 )
-=
-.
-q3 − q1
-q3 − q1
+**Coeficiente de asimetría de Bowley**: toma como referencia los cuartiles para determinar si la distribución es simétrica o no, focalizando en el 50% de los valores centrales de la distribución. Su expresión es:
+
+$$sk_B(x) = \frac{(q_3 - q_2) + (q_1 - q_2)}{q_3 - q_1} = \frac{q_3 + q_1 - 2\tilde{x}}{q_3 - q_1}.$$
 
 Se utiliza en general cuando la media y el desvío estándar no son representativos del
 conjunto de observaciones.
-Coeficiente de curtosis muestral: es una medida que describe el grado de apuntamiento de una distribución. También puede entenderse como una descripción del comportamiento de las colas de la distribución de las observaciones. Una mayor curtosis no
-implica una mayor varianza, ni viceversa. La expresión analítica para su cálculo es:
-P
-n nj=1 (xj − x̄)4
-k(x) = îP
-ó2 .
-n
-(x
-−
-x̄)
-j
-j=1
-Cuando los datos proceden de una distribución simétrica, como la distribución normal, k(xi ) ∼
-= 3. Las distribuciones leptocúrticas tienen coeficientes superiores a 3 y las
-platicúrticas coeficientes menores a 3.
 
-(a) Leptocútica
+**Coeficiente de curtosis muestral**: es una medida que describe el grado de apuntamiento de una distribución. También puede entenderse como una descripción del comportamiento de las colas de la distribución de las observaciones. Una mayor curtosis no implica una mayor varianza, ni viceversa. La expresión analítica para su cálculo es:
 
-(b) Mesocútica
+$$k(x) = \frac{n \sum_{j=1}^{n} (x_j - \bar{x})^4}{\left[\sum_{j=1}^{n} (x_j - \bar{x})^2\right]^2}.$$
 
-Figura 2.7: Distintos tipos de curtosis
+Cuando los datos proceden de una distribución simétrica, como la distribución normal, $k(x_i) \cong 3$. Las distribuciones leptocúrticas tienen coeficientes superiores a 3 y las platicúrticas coeficientes menores a 3.
 
-(c) Platicútica
-
-
+Figura 2.7: Distintos tipos de curtosis  
+(a) Leptocúrtica | (b) Mesocúrtica | (c) Platicúrtica
 
 <!-- PDF Page 26 -->
 
-
 #### 2.2.5 Representación gráfica
 
-Sobre el eje de las abscisas (eje horizontal) se representan las distintas categorías, valores o intervalos de la variable en estudio. Sobre el eje las ordenadas (eje vertical) se
-representan las frecuencias absolutas, las frecuencias relativas o las porcentuales.
-En varios de los ejemplos que siguen utilizaremos una base de datos sobre índice de
-masa corporal (IMC) infantil.
+Sobre el eje de las abscisas (eje horizontal) se representan las distintas categorías, valores o intervalos de la variable en estudio. Sobre el eje las ordenadas (eje vertical) se representan las frecuencias absolutas, las frecuencias relativas o las porcentuales.
+En varios de los ejemplos que siguen utilizaremos una base de datos sobre índice de masa corporal (IMC) infantil.
 
 https://flic.kr/p/FsKKYp
-
 
 ##### 2.2.5.1 Diagrama circular
 
 Es adecuado para representar la distribución de variables cualitativas y cuasicuantitativas. Permite visualizar la proporción captada por cada categoría de la variable.
-El Código 2.1 produce la Figura 2.9, mientras que el Código 2.2 produce un diagrama
-de tortas anidadas como se muestra en la Figura 2.10. Los datos para ambas figuras son
-extraídos de https://goo.gl/Dpnx9Z.
-l i b r a r y ( p l o t r i x ) # Paquete para m a n i p u l a r d i b u j o s
-l i b r a r y ( r e a d x l ) # Permite l e e r a r c h i v o s x l s x
-I M C i n f a n t i l =read _ e x c e l ( "C: / . . . / I M C i n f a n t i l . x l s x " )
-# I m p o r t a l a base con l a c u a l se va a t r a b a j a r
-a t t a c h ( I M C i n f a n t i l ) # Se pone l a base en l a memoria
-- r e c . catpeso= t a b l e ( CatPeso ) # C a l c u l a f r e c u e n c i a s de l a s c a t e g o r í as de peso
-e t i q u e t a s =c ( " D e f i c i e n t e " , " Normal " , " Obeso " , " Con sobrepeso " ) # Pone e t i q u e t a s
-pie3D ( f r e c . catpeso , l a b e l s = e t i q u e t a s , explode = 0 . 5 , l a b e l c e x = 0 . 8 , r a d i u s =2 ,
-h e i g h t = 0 . 1 , shade = 0 . 7 ,
-c o l =c ( " palegreen1 " , " p a l e t u r q u o i s e " , " plum2 " , " l i g h t p i n k 1 " ) )
-# Produce un diagrama c i r c u l a r
+El Código 2.1 produce la Figura 2.9, mientras que el Código 2.2 produce un diagrama de tortas anidadas como se muestra en la Figura 2.10. Los datos para ambas figuras son extraídos de `https://goo.gl/Dpnx9Z`.
 
-Código 2.1: Generación de un diagrama circular
+```r
+library(plotrix) # Paquete para manipular dibujos
+library(readxl)  # Permite leer archivos xlsx
 
+IMCinfantil = read_excel("C:/.../IMCinfantil.xlsx")
+# Importa la base con la cual se va a trabajar
+attach(IMCinfantil) # Se pone la base en la memoria
 
+frec.catpeso = table(CatPeso) # Calcula frecuencias de las categorías de peso
+etiquetas = c("Deficiente", "Normal", "Obeso", "Con_sobrepeso") # Pone etiquetas
 
+pie3D(frec.catpeso, labels=etiquetas, explode=0.5, labelcex=0.8, radius=2, height=0.1, shade=0.7,
+col=c("palegreen1", "paleturquoise", "plum2", "lightpink1"))
+# Produce un diagrama circular
+```
+
+**Código 2.1: Generación de un diagrama circular**
 
 <!-- PDF Page 27 -->
 
-
-Normal
-Deficiente
-Con sobrepeso
-Obeso
-
 Figura 2.9: Diagrama circular con etiquetas
 
-Fem
-46.67 % - 42 ind.
-
-Normal
-60 % - 90 ind.
-Masc
-53.33 % - 48 ind.
-
-Masc
-33.33 % - 2 ind.
-Deficiente
-4 % - 6 ind.
-
-Fem
-66.67 % - 4 ind.
-
-Sobrepeso
-18 % - 27 ind.
-
-Masc
-37.04 % - 10 ind.
-
-Obeso
-18 % - 27 ind.
+Figura 2.10: Diagrama de tortas anidadas
 
 Fem
 62.96 % - 17 ind.
