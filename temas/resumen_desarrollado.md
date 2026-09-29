@@ -215,19 +215,29 @@ Los dispositivos **IoT** generan flujos masivos de lecturas numéricas continuas
 
 ### 2.3 El Objeto `ndarray`: Estructura, Atributos y Métodos
 
-El **`ndarray`** es un arreglo multidimensional homogéneo escrito en C.
+El **`ndarray`** (*N-dimensional array*) es un arreglo multidimensional homogéneo escrito en C para lograr alta eficiencia computacional y evitar los costos de comprobación dinámica de tipos de Python.
 
-#### Atributos Clave:
-- **`shape`**: Tupla con las dimensiones de la matriz (ej. `(100, 5)` indica 100 filas y 5 columnas).
-- **`dtype`**: Tipo de dato único de todos los elementos (ej. `float64`, `int32`).
-- **`itemsize`**: Tamaño en bytes de cada elemento individual (ej. 8 bytes para `float64`).
-- **`strides`**: Tupla que indica el número de bytes que se deben saltar en memoria para avanzar un elemento a lo largo de cada dimensión.
-- **Metadatos**: Puntero a la dirección de memoria física donde inicia el bloque contiguo.
+#### Atributos Clave de `numpy.ndarray` (según diapositivas):
 
-#### Métodos de Modificación de Forma:
-- **`reshape(new_shape)`**: Cambia las dimensiones del array sin modificar los datos. Si el array es contiguo en memoria, genera una **vista** (*view*) sin copiar datos.
-- **`flatten()`**: Convierte el array a 1D retornando siempre una **copia independiente** de los datos en memoria.
-- **`ravel()`**: Aplana el array a 1D retornando una **vista** siempre que sea posible (más rápido y eficiente en memoria).
+| Atributo | Descripción | Ejemplo / Retorno |
+| :--- | :--- | :--- |
+| **`ndim`** | Retorna el número de dimensiones del array. | `2` para matriz bidimensional |
+| **`shape`** | Tupla con la cantidad de elementos en cada dimensión. | `(100, 5)` (100 filas, 5 columnas) |
+| **`dtype`** | Tipo de datos numéricos único de todos los elementos. | `int32`, `float64`, `bool` |
+| **`size`** | Cantidad total de elementos contenidos en la matriz. | `500` para matriz de `(100, 5)` |
+| **`itemsize`** | Tamaño en bytes de cada elemento individual. | `8` bytes para `float64` |
+| **`data`** | Buffer que contiene los elementos del array en memoria física. | `<memory at 0x...>` |
+| **`T`** | Transpuesta del array (intercambia filas por columnas). | `arr.T` |
+
+#### Métodos Principales de `numpy.ndarray`:
+
+| Método | Descripción | Ejemplo de Sintaxis |
+| :--- | :--- | :--- |
+| **`flatten()`** | Convierte el array a 1D retornando siempre una **copia independiente** en memoria. | `arr.flatten()` |
+| **`reshape()`** | Cambia las dimensiones del array sin modificar los datos (genera una **vista** si es contiguo). | `arr.reshape((5, 20))` |
+| **`sum()`** | Devuelve la suma total o la suma a lo largo de un eje (`axis`). | `arr.sum(axis=0)` |
+| **`mean()`** | Calcula la media aritmética de los datos (general o por eje). | `arr.mean(axis=1)` |
+| **`std()`** | Calcula la desviación estándar de los datos. | `arr.std()` |
 
 ---
 
@@ -239,16 +249,23 @@ La **Vectorización** permite realizar operaciones matemáticas sobre arrays ent
 
 ---
 
-### 2.5 Ensamblaje de Matrices y Funciones Generadoras
+### 2.5 Funciones Generadoras de Arrays y Ensamblaje
+
+NumPy incluye funciones fundamentales de creación y manipulación de matrices:
+
+| Función | Descripción | Ejemplo de Sintaxis |
+| :--- | :--- | :--- |
+| **`np.zeros()`** | Crea un array lleno de ceros según la cantidad de elementos o forma (*shape*). | `np.zeros((3, 3))` |
+| **`np.ones()`** | Crea un array lleno de unos. | `np.ones((2, 4))` |
+| **`np.empty()`** | Crea un array sin inicializar (con valores basura del buffer de memoria). | `np.empty((2, 2))` |
+| **`np.arange()`** | Adaptación de `range()` a NumPy. Permite secuencias numéricas con pasos decimales. | `np.arange(0, 10, 0.5)` |
+| **`np.linspace()`** | Crea un array con una cantidad exacta de puntos equiespaciados en un intervalo. | `np.linspace(0, 1, 5)` |
+| **`np.sort()`** | Ordena los elementos de un array en orden ascendente. | `np.sort(arr)` |
+| **`np.concatenate()`** | Concatena dos o más arrays a lo largo de un eje especificado. | `np.concatenate((a, b), axis=0)` |
+| **`np.expand_dims()`** | Agrega dimensiones adicionales al array (*expand dimensions*). | `np.expand_dims(arr, axis=0)` |
 
 ```python
 import numpy as np
-
-# Funciones de Creación
-zeros = np.zeros((3, 3))        # Matriz 3x3 de ceros
-ones = np.ones((2, 4))          # Matriz 2x4 de unos
-arange = np.arange(0, 10, 2)    # [0, 2, 4, 6, 8]
-linspace = np.linspace(0, 1, 5) # 5 puntos equiespaciados entre 0 y 1
 
 # Ensamblaje / Apilado de Matrices
 A = np.array([[1, 2], [3, 4]])
@@ -261,7 +278,17 @@ concat = np.concatenate((A, B), axis=0) # Concatenación por eje
 
 ---
 
-### 2.5 Pipelines de Computación Numérica
+### 2.6 Casos de Aplicación Teóricos de NumPy (Material de Cátedra)
+
+1. **Big Data**: Procesamiento masivo de torrentes numéricos en memoria contigua optimizada.
+2. **Estadística Avanzada**: Cálculo de matrices de covarianza, varianzas y correlaciones.
+3. **Álgebra Lineal**: Transformaciones de coordenadas, resolución de sistemas de ecuaciones (`np.linalg.solve`) y autovalores/autovectores.
+4. **Modelos de Procesamiento del Lenguaje Natural (NLP)**: Representación de vectores de palabras (*word embeddings*) y matrices TF-IDF.
+5. **Procesamiento de Imágenes**: Manipulación de imágenes representadas como tensores 3D de píxeles (alto, ancho, canales RGB).
+
+---
+
+### 2.7 Pipelines de Computación Numérica
 
 Un **Pipeline** en NumPy encadena transformaciones vectorizadas continuas sobre matrices de datos sin crear variables intermedias redundantes, optimizando la memoria caché del sistema.
 
@@ -278,7 +305,7 @@ resultado = norm_pipeline.mean(axis=0)
 
 ### 3.1 ¿Qué es Pandas y para qué sirve?
 
-**Pandas** es la librería estándar de código abierto y de alto nivel en Python para la **manipulación, limpieza, transformación y análisis de datos estructurados y tabulares**. Construida sobre la infraestructura de cálculo numérico de NumPy, proporciona estructuras flexibles enriquecidas con etiquetas explícitas en filas (índices) y columnas.
+**Pandas** es la librería estándar de código abierto y de alto nivel en Python para la **manipulación, limpieza, transformación y análisis de datos estructurados y tabulares**. Fue creada inicialmente en **2008 por Wes McKinney**. Construida sobre la infraestructura de cálculo numérico de NumPy, proporciona estructuras flexibles enriquecidas con etiquetas explícitas en filas (índices) y columnas.
 
 #### ¿Para qué sirve Pandas?
 1. **Ingesta y Carga Multiformato de Datos**: Importa y exporta datos fácilmente desde/hacia archivos CSV, Excel (`.xlsx`), JSON, bases de datos SQL, Parquet y HTML (`pd.read_csv()`, `pd.read_excel()`).
@@ -289,32 +316,48 @@ resultado = norm_pipeline.mean(axis=0)
 
 ---
 
-### 3.2 El Enfoque en Pandas y Manejo de Estructuras Tabulares
+### 3.2 Funciones de Carga e Ingesta de Datos
 
-Mientras NumPy opera sobre bloques numéricos puros homogéneos, Pandas está orientada a manejar **estructuras tabulares heterogéneas** (columnas con distintos tipos de datos: números, texto, fechas, booleanos) con etiquetas explícitas en filas (índices) y columnas.
+| Función | Descripción | Ejemplo de Sintaxis |
+| :--- | :--- | :--- |
+| **`pd.read_csv()`** | Abre e importa archivos CSV a un DataFrame. | `df = pd.read_csv("datos.csv")` |
+| **`pd.read_excel()`** | Abre e importa hojas de cálculo Excel (`.xlsx`). | `df = pd.read_excel("datos.xlsx")` |
+| **`pd.read_json()`** | Carga archivos en formato JSON. | `df = pd.read_json("datos.json")` |
+| **`pd.DataFrame()`** | Constructor para instanciar manualmente un DataFrame desde diccionarios o matrices. | `df = pd.DataFrame(diccionario)` |
+| **`pd.to_datetime()`** | Convierte cadenas de texto o números a objetos `datetime64`. | `df["fecha"] = pd.to_datetime(df["fecha"])` |
+| **`pd.merge()`** | Realiza uniones relacionales entre DataFrames (*joins* tipo SQL). | `pd.merge(df1, df2, on="id", how="inner")` |
 
 ---
 
 ### 3.3 Las Estructuras Clave: `Series` y `DataFrame`
 
-1. **`Series`**: Estructura unidimensional etiquetada capaz de contener cualquier tipo de dato (`int`, `float`, `str`, `object`). Consta de dos componentes: un array de **datos** y un array de **etiquetas de índice** (`index`).
+1. **`Series`**: Estructura unidimensional etiquetada capaz de contener cualquier tipo de dato (`int`, `float`, `str`, `object`). Consta de dos componentes: un array de **datos** (`values`) y un array de **etiquetas de índice** (`index`).
 2. **`DataFrame`**: Estructura bidimensional (tabla) compuesta por una colección ordenada de columnas `Series` que comparten un mismo índice de filas.
 
-```python
-import pandas as pd
+#### Atributos y Métodos de la Clase `Series`:
+- **Atributos**: `index`, `values`, `name`, `is_unique`. *(Nota de cátedra: comparte la mayoría de los atributos de `ndarray` excepto `data`, `itemsize` y `strides`)*.
+- **Métodos**: `head(n)`, `describe()`, `dropna()`, `apply(func)`. *(Nota de cátedra: comparte la mayoría de los métodos de `ndarray` excepto `flatten()` y `reshape()`)*.
 
-# Creación de DataFrame
-df = pd.DataFrame({
-    "Candidata": ["Mariana", "Maia", "Carla"],
-    "Puntaje": [85, 90, 88]
-})
-```
+#### Atributos y Métodos de la Clase `DataFrame`:
+- **Atributos**: `shape` (tupla de filas y columnas), `columns` (nombres de columnas), `dtypes` (tipos de datos por columna), `index` (etiquetas de filas).
+- **Métodos**: `to_csv()`, `to_excel()`, `head(n)`, `info()` (resumen estructural de la tabla), `groupby()` (agrupamientos por categoría).
 
 ---
 
-### 3.4 Vectorización y Alineación por Índices
+### 3.4 Formas de Selección y Filtrado en DataFrames
 
-A diferencia de NumPy (que alinea por posición fija), Pandas realiza **alineación automática basada en etiquetas de índice**. Si dos `Series` tienen índices en distinto orden, Pandas empareja las etiquetas antes de realizar la operación matemática.
+Segunda las diapositivas teóricas, existen múltiples vías para acceder y filtrar datos:
+
+1. **Selección de Columnas por Nombre**:
+   - Una columna: `df.id` o `df["id"]`
+   - Múltiples columnas: `df[["id", "damage"]]`
+2. **Selección por Posición de Columna**:
+   - Una columna por posición: `df.iloc[:, 1]`
+   - Rango de columnas: `df.iloc[:, 1:4]`
+3. **Filtrado de Filas**:
+   - Por posición: `df.iloc[2, :]` (obtiene la fila en índice entero 2)
+   - Por condición lógica: `df.loc[df.damage == 3, ["id", "damage"]]`
+   - Mediante consulta limpia: `df.query("damage > 2")`
 
 ---
 
@@ -339,6 +382,28 @@ En Pandas, **`.loc[]`** e **`.iloc[]`** son indexadores explícitos que resuelve
 | **Límite de Slicing (`a:b`)** | **Inclusivo** en ambos lados (`a` y `b`) | **Exclusivo** a derecha (incluye `a`, excluye `b`) |
 | **Soporta Máscara Booleana** | Sí (`df.loc[df["A"] > 5]`) | No directamente (requiere vectores `.values` o enteros) |
 | **Ejemplo de Uso** | `df.loc[0:2, ["Nombre", "Edad"]]` | `df.iloc[0:2, 0:2]` |
+
+---
+
+### 3.6 Procesamiento Vectorizado de Fechas (`.dt`) y Texto (`.str`)
+
+#### Accesor de Fechas `.dt`:
+Tras aplicar `pd.to_datetime()`, se habilita el accesor **`.dt`** para extraer atributos temporales:
+- `df["fecha"].dt.year` (año)
+- `df["fecha"].dt.month` (mes)
+- `df["fecha"].dt.day` (día)
+
+#### Accesor de Texto `.str`:
+Permite aplicar operaciones sobre cadenas de caracteres elemento a elemento:
+
+| Método de `.str` | Descripción | Ejemplo de Sintaxis |
+| :--- | :--- | :--- |
+| **`str.lower()`** | Convierte el texto a minúsculas. | `df["texto"].str.lower()` |
+| **`str.upper()`** | Convierte el texto a mayúsculas. | `df["texto"].str.upper()` |
+| **`str.slice()`** | Corta subcadenas por posiciones de caracteres. | `df["texto"].str.slice(0, 3)` |
+| **`str.split()`** | Divide las cadenas por un separador. | `df["texto"].str.split(" ")` |
+| **`str.replace()`** | Reemplaza ocurrencias de texto. | `df["texto"].str.replace("a", "b")` |
+
 
 
 ---
