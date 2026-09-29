@@ -190,7 +190,7 @@ $$rg(x) = x^{(n)} - x^{(1)}.$$
 Si bien es una medida de cálculo sencillo, no resulta en general muy informativa. En la Figura 2.3 se pueden apreciar tres conjuntos de datos con el mismo rango pero diferente grado de concentración alrededor del centro.
 
 Figura 2.3: Variabilidad y rango  
-![Figura 2.3: Variabilidad y rango](imagenes/img-000.png)
+![Figura 2.3: Variabilidad y rango](../recursos/imagenes/img-000.png)
 
 **Varianza Muestral**: se define como el promedio de los cuadrados de las distancias de las observaciones a la media muestral; es decir,
 
@@ -265,7 +265,7 @@ $$sk_F(x) = \frac{\sqrt{n} \sum_{j=1}^{n} (x_j - \bar{x})^3}{\left[\sum_{j=1}^{n
 Figura 2.4: Asimetría negativa o a izquierda  
 Figura 2.5: Simetría  
 Figura 2.6: Asimetría positiva o a derecha  
-![Figuras 2.4, 2.5 y 2.6: Curvas de Asimetría y Simetría](imagenes/img-001.png)
+![Figuras 2.4, 2.5 y 2.6: Curvas de Asimetría y Simetría](../recursos/imagenes/img-001.png)
 
 Cuando los datos proceden de una distribución simétrica (Figura 2.5), como la distribución normal, $sk(x) \approx 0$, la mediana coincide con la moda y el promedio muestral. Sin embargo, como puede observarse en las Figuras 2.4 y 2.6, la media es "arrastrada" ante la presencia de valores extremos (muy grandes o muy chicos).
 
@@ -468,7 +468,7 @@ plot(Modelo, Ventas, type="h", lty="solid", lwd=4,
 **Código 2.6: Generación de un diagrama de bastones**
 
 Figura 2.14: Diagrama de bastones  
-![Figura 2.14: Diagrama de bastones](imagenes/img-000.png)
+![Figura 2.14: Diagrama de bastones](../recursos/imagenes/img-000.png)
 
 ##### 2.2.5.4 Histograma y polígono de frecuencias
 
@@ -526,7 +526,7 @@ hist(iris$Sepal.Length, breaks='FD', prob=TRUE, main="Freedman–Diaconis",
 **Código 2.8: Generación de histogramas variando la cantidad de clases**
 
 Figura 2.18: Histogramas con distintos intervalos  
-![Figura 2.18: Histogramas con distintos intervalos](imagenes/img-002.png)
+![Figura 2.18: Histogramas con distintos intervalos](../recursos/imagenes/img-002.png)
 
 El parámetro `nclass` da una cantidad sugerida de clases para la función `hist`. Si la cantidad de clases es excesiva el histograma resultante es muy irregular, mientras que si la cantidad es escasa la forma del histograma está sobresuavizada.
 
@@ -593,7 +593,7 @@ Se observa claramente que el valor 198 está alejado del grupo de valores restan
 - $198 > Q_3 + 3 \cdot RI$, por lo tanto es un outlier severo.
 
 Figura 2.20: Simetría en boxplots  
-![Figura 2.20: Simetría en boxplots](imagenes/img-003.png)
+![Figura 2.20: Simetría en boxplots](../recursos/imagenes/img-003.png)
 
 Observaciones:
 - Si la distribución es simétrica, vemos que la Mediana está ubicada en el centro de la caja y que los bigotes tienen longitudes similares.
@@ -635,7 +635,7 @@ ggplot(data=datos, aes(y=kcal), colour=factor(Laboratorio)) +
 **Código 2.9: Generación de un boxplot comparativo**
 
 Figura 2.22: Boxplots comparativos  
-![Figura 2.22: Boxplots comparativos](imagenes/img-004.png)
+![Figura 2.22: Boxplots comparativos](../recursos/imagenes/img-004.png)
 
 Observaciones:
 - Los laboratorios 1 y 3 son los de mayor precisión en sus mediciones.
@@ -780,7 +780,7 @@ mosaicplot(mat, col=c("skyblue", "royalblue"), cex.axis=0.8, main="")
 **Código 2.10: Generación de un diagrama de mosaicos**
 
 Figura 2.24: Diagrama de mosaicos  
-![Figura 2.24: Diagrama de mosaicos](imagenes/img-005.png)
+![Figura 2.24: Diagrama de mosaicos](../recursos/imagenes/img-005.png)
 
 En la Figura 2.24 se aprecia que es menor la proporción de compradores que han tenido en cuenta el consumo entre los que consideraron la garantía que entre los que no han tenido en cuenta la garantía, en el momento de decidir la compra.
 
@@ -916,7 +916,7 @@ Las curvas de nivel unen puntos de igual cantidad de observaciones. De este modo
 Mostramos el caso de la distribución Normal Bivariada en las Figuras 2.29 y 2.30, ambas generadas mediante el Código 2.15.
 
 Figura 2.29: Gráfico de la distribución Normal Bivariada  
-![Figura 2.29: Gráfico de la distribución Normal Bivariada](imagenes/img-006.png)
+![Figura 2.29: Gráfico de la distribución Normal Bivariada](../recursos/imagenes/img-006.png)
 
 Figura 2.30: Gráfico de las curvas de nivel de la distribución Normal Bivariada
 
@@ -1099,7 +1099,7 @@ ggplot(dat, aes(x=Obs, y=Valor, group=Clase, colour=Clase)) +
 **Código 2.18: Generación de un gráfico de control univariado**
 
 Figura 2.34: Control univariado  
-![Figura 2.34: Control univariado](imagenes/img-007.png)
+![Figura 2.34: Control univariado](../recursos/imagenes/img-007.png)
 
 En la Figura 2.34 podemos apreciar si el dato excede o está por debajo de las especificaciones, pero no podremos apreciar si la forma es la adecuada o no.
 
