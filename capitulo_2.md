@@ -108,115 +108,93 @@ valores del recorrido de la variable.
 - En el caso de variables continuas, es necesario definir intervalos que cubran
 el recorrido de la variable en estudio, denominados “intervalos de clase”.
 - En ambos casos, se registra la frecuencia absoluta de cada modalidad (cantidad de observaciones en ella) o de cada intervalo (cantidad de observaciones
-dentro del rango del intervalo definido).
-
-
-
-<!-- PDF Page 17 -->
-2.1. VARIABLES: NIVELES DE MEDICIÓN
-
-
-Ejemplo 2.2. Estudiamos ahora la evolución de las ventas de vehículos de alta
+dentro del rango del intervaEjemplo 2.2. Estudiamos ahora la evolución de las ventas de vehículos de alta
 gama, en la misma sucursal durante los últimos 24 meses.
-Alta gama
 
-Meses
+| Alta gama | Meses |
+| :---: | :---: |
+| 1 | 2 |
+| 2 | 3 |
+| 3 | 7 |
+| 4 | 4 |
+| 5 | 8 |
 
+*Tabla 2.2: Ejemplo de variable discreta*
 
-
-Tabla 2.2: Ejemplo de variable discreta
-
-
 La Tabla 2.2 indica que en 7 de los meses observados se han vendido 3 vehículos
 de alta gama, 8 meses en los que se han vendido 5 vehículos de alta gama, etc.
+
 Ejemplo 2.3. Estamos interesados en investigar la cantidad de proteínas en gramos
 consumidas por día per cápita para una muestra de habitantes de distintos partidos
 del Gran Buenos Aires.
-Intervalo de clase
-[7, 9)
-[9, 11)
-[11, 13)
-[13, 15)
-[15, 17)
 
-fi (frec. absoluta)
+| Intervalo de clase | $f_i$ (frec. absoluta) |
+| :---: | :---: |
+| $[7, 9)$ | 6 |
+| $[9, 11)$ | 10 |
+| $[11, 13)$ | 4 |
+| $[13, 15)$ | 7 |
+| $[15, 17)$ | 5 |
 
-Tabla 2.3: Ejemplo de frecuencias absolutas
+*Tabla 2.3: Ejemplo de frecuencias absolutas*
 
 La Tabla 2.3 informa, por ejemplo, que 4 individuos consumieron entre 11 y 13
 gramos de proteínas por día. Pero no nos da una idea de la concentración de nuestra población de interés en dicha categoría. Por este motivo, es usual incorporar las
 frecuencias porcentuales en estas tablas.
+
 Para calcular las frecuencias porcentuales, es necesario recordar que la suma de
-las frecuencias observadas en las m modalidades de la variable fi , con 1 ≤ i ≤ m,
-es igual a la cantidad total de observaciones n, registradas en las mismas de la
-variable; es decir, se tiene que f1 + f2 + · · · + fm = n.
+las frecuencias observadas en las $m$ modalidades de la variable $f_i$, con $1 \le i \le m$,
+es igual a la cantidad total de observaciones $n$, registradas en las mismas de la
+variable; es decir, se tiene que $f_1 + f_2 + \dots + f_m = n$.
+
 La frecuencia relativa se calcula dividiendo la frecuencia absoluta por la cantidad
-total de observaciones fi /n y la frecuencia porcentual fri se obtiene multiplicando
-estos resultados por 100. Así, por ejemplo, la frecuencia relativa de la clase [11, 13)
-
-
+total de observaciones $f_i / n$ y la frecuencia porcentual $f_{r_i}$ se obtiene multiplicando
+estos resultados por 100. Así, por ejemplo, la frecuencia relativa de la clase $[11, 13)$
 
 <!-- PDF Page 18 -->
 
-
-resulta 4/32 = 0.125 y su frecuencia porcentual es 12.5%. Repitiendo este procedimiento para todos los intervalos de clase obtenemos la distribución de frecuencias
+resulta $4/32 = 0.125$ y su frecuencia porcentual es $12.5\%$. Repitiendo este procedimiento para todos los intervalos de clase obtenemos la distribución de frecuencias
 porcentuales o relativas dadas en la Tabla 2.4.
-Intervalo de clase
 
-f% (frec. porcentual)
-18.75
-31.25
-12.5
-21.88
-15.62
+| Intervalo de clase | $f_{\%}$ (frec. porcentual) |
+| :---: | :---: |
+| $[7, 9)$ | 18.75 |
+| $[9, 11)$ | 31.25 |
+| $[11, 13)$ | 12.5 |
+| $[13, 15)$ | 21.88 |
+| $[15, 17)$ | 15.62 |
 
-[7, 9)
-[9, 11)
-[11, 13)
-[13, 15)
-[15, 17)
-
-Tabla 2.4: Ejemplo de frecuencias porcentuales
+*Tabla 2.4: Ejemplo de frecuencias porcentuales*
 
 Ahora tenemos una idea de la magnitud de la frecuencia y podemos apreciar que la
 mayoría de los individuos observados consumen entre 9 y 11 gramos de proteínas
 por día.
-
-
 
 ### 2.2 Medidas descriptivas univariadas
-
 
 #### 2.2.1 Medidas de tendencia central
 
 Las medidas de tendencia central son resúmenes estadísticos que pretenden representar
-
 a un conjunto de valores con un solo valor. Definen, de alguna manera, el punto en torno
 al cual se encuentra ubicado el conjunto de los datos. A continuación presentamos los
 ejemplos más difundidos de medidas de tendencia central.
-Media aritmética o promedio muestral: es el promedio de las observaciones registradas y se calcula a partir de un conjunto de datos dado {x1 , x2 , · · · , xn }, como
-n
 
-1X
-x=
-xi .
-n i=1
-Propiedades
+**Media aritmética o promedio muestral**: es el promedio de las observaciones registradas y se calcula a partir de un conjunto de datos dado $\{x_1, x_2, \dots, x_n\}$, como:
+
+$$\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i$$
+
+Propiedades:
 - Es de cálculo sencillo.
 - Se puede calcular sólo para escalas de medición cuantitativas.
-- Preserva la dependencia lineal; es decir, si y = ax + b entonces y = ax + b.
+- Preserva la dependencia lineal; es decir, si $y = ax + b$ entonces $\bar{y} = a\bar{x} + b$.
 - No puede aplicarse a datos censurados.
-- Es muy sensible a la presencia de valores extremos (muy alejados del conjunto de
-datos), vale decir que no es una medida robusta.
-
-
+- Es muy sensible a la presencia de valores extremos (muy alejados del conjunto de datos), vale decir que no es una medida robusta.
 
 <!-- PDF Page 19 -->
 
+**Mediana**: se define como un valor que divide a la distribución ordenada en dos partes iguales, cada una de las cuales contiene el $50\%$ de las observaciones. Si la muestra ordenada es: $x^{(1)} \le x^{(2)} \le \dots \le x^{(n)}$, entonces la mediana es:
 
-Mediana: se define como un valor que divide a la distribución ordenada en dos partes
-iguales, cada una de las cuales contiene el 50% de las observaciones. Si la muestra
-ordenada es: x(1) ≤ x(2) ≤ · · · ≤ x(n) , entonces la mediana es
+$$\tilde{x} = \begin{cases} x^{\left(\frac{n+1}{2}\right)} & \text{si } n \text{ es impar,} \\ \frac{x^{\left(\frac{n}{2}\right)} + x^{\left(\frac{n}{2}+1\right)}}{2} & \text{si } n \text{ es par.} \end{cases}$$(2) ≤ · · · ≤ x(n) , entonces la mediana es
  n+1
 
 si n es impar,
