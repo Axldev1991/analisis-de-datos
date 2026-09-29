@@ -44,6 +44,7 @@
 
 ## 2. NumPy
 
+- **¿Qué es y para qué sirve?**: Librería fundamental de código abierto para computación científica y matricial en Python. Sirve para manipular arreglos multidimensionales (`ndarray`), ejecutar cómputo vectorial de alta velocidad en C, resolver álgebra lineal y estadística (`np.linalg`), y constituye la base de todo el ecosistema (Pandas, SciPy, Scikit-Learn).
 - **IoT (Internet of Things)**: Flujos numéricos continuos de sensores que exigen procesamiento vectorial eficiente.
 - **`ndarray`**: Arreglo multidimensional homogéneo en memoria contigua en C.
   - *Atributos principales*: `shape` (dimensiones), `dtype` (tipo único), `itemsize` (bytes por elemento), `strides` (pasos de memoria).

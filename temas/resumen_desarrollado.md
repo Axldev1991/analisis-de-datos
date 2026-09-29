@@ -24,11 +24,12 @@
    - [1.12 Procesamiento Inductivo vs. Deductivo](#112-procesamiento-inductivo-vs-deductivo)
    - [1.13 Minería de Texto (Text Mining)](#113-minería-de-texto-text-mining)
 2. [Sección 2: NumPy (Numerical Python)](#sección-2-numpy-numerical-python)
-   - [2.1 IoT (Internet of Things) y el Flujo de Datos Numéricos](#21-iot-internet-of-things-y-el-flujo-de-datos-numéricos)
-   - [2.2 El Objeto `ndarray`: Estructura, Atributos y Métodos](#22-el-objeto-ndarray-estructura-atributos-y-métodos)
-   - [2.3 Vectorización e Instrucciones SIMD del Hardware](#23-vectorización-e-instrucciones-simd-del-hardware)
-   - [2.4 Ensamblaje de Matrices y Funciones Generadoras](#24-ensamblaje-de-matrices-y-funciones-generadoras)
-   - [2.5 Pipelines de Computación Numérica](#25-pipelines-de-computación-numérica)
+   - [2.1 ¿Qué es NumPy y para qué sirve?](#21-qué-es-numpy-y-para-qué-sirve)
+   - [2.2 IoT (Internet of Things) y el Flujo de Datos Numéricos](#22-iot-internet-of-things-y-el-flujo-de-datos-numéricos)
+   - [2.3 El Objeto `ndarray`: Estructura, Atributos y Métodos](#23-el-objeto-ndarray-estructura-atributos-y-métodos)
+   - [2.4 Vectorización e Instrucciones SIMD del Hardware](#24-vectorización-e-instrucciones-simd-del-hardware)
+   - [2.5 Ensamblaje de Matrices y Funciones Generadoras](#25-ensamblaje-de-matrices-y-funciones-generadoras)
+   - [2.6 Pipelines de Computación Numérica](#26-pipelines-de-computación-numérica)
 3. [Sección 3: Pandas](#sección-3-pandas)
    - [3.1 El Enfoque en Pandas y Manejo de Estructuras Tabulares](#31-el-enfoque-en-pandas-y-manejo-de-estructuras-tabulares)
    - [3.2 Las Estructuras Clave: `Series` y `DataFrame`](#32-las-estructuras-clave-series-y-dataframe)
@@ -193,13 +194,25 @@ Consiste en la extracción automatizada de conocimiento útil a partir de grande
 
 ## Sección 2: NumPy (Numerical Python)
 
-### 2.1 IoT (Internet of Things) y el Flujo de Datos Numéricos
+### 2.1 ¿Qué es NumPy y para qué sirve?
+
+**NumPy** (*Numerical Python*) es la librería fundamental de código abierto para la **computación científica, matricial y numérica en Python**. Proporciona un objeto de arreglo $N$-dimensional de alto rendimiento denominado **`ndarray`**, así como rutinas optimizadas para operar sobre él.
+
+#### ¿Para qué sirve NumPy?
+1. **Procesamiento de Grandes Volúmenes de Datos Numéricos**: Permite almacenar y operar sobre vectores, matrices y tensores homogéneos en un bloque contiguo de memoria optimizado en C.
+2. **Cómputo Vectorial de Alta Velocidad**: Elimina los bucles explícitos `for` de Python (que son lentos por la inspección de tipo dinámico) reemplazándolos por operaciones vectorizadas masivas.
+3. **Álgebra Lineal y Estadística Avanzada**: Incluye el submódulo `np.linalg` para calcular productos de matrices, transposiciones, inversas, determinantes, sistemas de ecuaciones lineales, autovalores/autovectores y transformadas de Fourier.
+4. **Base del Ecosistema de Data Science**: Constituye la infraestructura sobre la cual se apoyan **Pandas** (DataFrames), **SciPy** (cómputo científico), **Scikit-Learn** (Machine Learning) y motores de Deep Learning (**TensorFlow**, **PyTorch**).
+
+---
+
+### 2.2 IoT (Internet of Things) y el Flujo de Datos Numéricos
 
 Los dispositivos **IoT** generan flujos masivos de lecturas numéricas continuas (temperatura, aceleración, presión). Para procesar estos torrentes de datos a alta velocidad en Python se requiere **NumPy**, ya que la estructura nativa `list` de Python resulta ineficiente en memoria y velocidad.
 
 ---
 
-### 2.2 El Objeto `ndarray`: Estructura, Atributos y Métodos
+### 2.3 El Objeto `ndarray`: Estructura, Atributos y Métodos
 
 El **`ndarray`** es un arreglo multidimensional homogéneo escrito en C.
 
@@ -217,7 +230,7 @@ El **`ndarray`** es un arreglo multidimensional homogéneo escrito en C.
 
 ---
 
-### 2.3 Vectorización e Instrucciones SIMD del Hardware
+### 2.4 Vectorización e Instrucciones SIMD del Hardware
 
 La **Vectorización** permite realizar operaciones matemáticas sobre arrays enteros sin escribir bucles `for` en Python.
 
@@ -225,7 +238,7 @@ La **Vectorización** permite realizar operaciones matemáticas sobre arrays ent
 
 ---
 
-### 2.4 Ensamblaje de Matrices y Funciones Generadoras
+### 2.5 Ensamblaje de Matrices y Funciones Generadoras
 
 ```python
 import numpy as np
