@@ -5,32 +5,6 @@
 
 ---
 
-# Capítulo 2: Introducción al Análisis de Datos
-
-> *La Estadística es una ciencia que demuestra que si mi vecino tiene dos autos y yo ninguno, los dos tenemos uno.*
-
----
-
-<!-- PDF Page 13 -->
-
-IoE describe un mundo de millones de objetos con sensores que detectan y evalúan
-su estado. Todos están conectados a través de redes públicas o privadas utilizando
-diversos protocolos.
-Los expertos sostienen que Internet of Everything reinventará las industrias en tres
-niveles: proceso de negocio, modelo de negocio y momento de negocio.
-
-
-
-
-<!-- PDF Page 14 -->
-
-Capítulo 2
-Introducción al análisis de datos
-La Estadística es una ciencia que
-demuestra que si mi vecino tiene
-dos autos y yo ninguno, los dos
-tenemos uno.
-— George Bernad Shaw
 
 
 ### 2.1 Variables: niveles de medición
@@ -113,21 +87,19 @@ Capital Federal durante el mes pasado.
 
 https://flic.kr/p/bx4uHH
 
-Para ello, se contruye una distribución de frecuencias donde a cada categoría o
+Para ello, se construye una distribución de frecuencias donde a cada categoría o
 modalidad de la variable se le asigna su frecuencia absoluta; es decir, el número
 de veces que se ha registrado dicha categoría en la muestra de observaciones.
-Modelo
 
-Frecuencia
+| Modelo | Frecuencia |
+| :--- | :---: |
+| Utilitario | 6 |
+| Familiar | 10 |
+| Cupé | 7 |
+| Camioneta | 12 |
+| Sedán | 17 |
 
-Utilitario
-Familiar
-Cupé
-Camioneta
-Sedán
-
-
-Tabla 2.1: Ejemplo de distribución de frecuencias
+*Tabla 2.1: Ejemplo de distribución de frecuencias*
 
 
 2. Para datos cuantitativos:
