@@ -309,29 +309,14 @@ n
 n − 1 i=1
 
 Observación: Algunos autores definen la varianza muestral usando como denominador n − 1 en lugar de n. El fundamento teórico para esta expresión es que la varianza
-muestral calculada de esta forma es un estimación mas precisa de la varianza poblacional, especialmente cuando n es pequeño.
-Propiedades
-- Es de cálculo sencillo.
-- Se puede calcular sólo para variables cuantitativas.
+muestral calculada de esta forma es u- Si $y = ax + b$, entonces $s_y^2 = a^2 s_x^2$.
+- Las unidades de medición de la varianza son el cuadrado de las unidades de los datos originales.
+- Es muy sensible a la presencia de valores extremos. No es una medida *robusta*.
+- En los casos en que la media no resulta adecuada como medida de tendencia central, tampoco la varianza lo es como medida de dispersión.
 
+**Desviación estándar muestral**: Se define como la raíz cuadrada de la varianza y permite retornar a las unidades de medición originales. En símbolos:
 
-
-<!-- PDF Page 22 -->
-
-
-- Si y = ax + b, entonces s2y = a2 s2x .
-- Las unidades de medición de la varianza son el cuadrado de las unidades de los
-datos originales.
-- Es muy sensible a la presencia de valores extremos. No es una medida robusta.
-- En los casos en que la media no resulta adecuada como medida de tendencia
-central, tampoco la varianza lo es como medida de dispersión.
-Desviación estándar muestral: Se define como la raíz cuadrada de la varianza y
-permite retornar a las unidades de medición originales. En símbolos:
-sx =
-
-p
-
-s2x .
+$$s_x = \sqrt{s_x^2}.$$
 
 Coeficiente de variación (CV): es una medida de dispersión relativa porque mide la
 proporción que representa el desvío estándar de la media aritmética. Se define como el
@@ -349,82 +334,69 @@ media como representación de la tendencia central de nuestros datos, tampoco se
 adecuado informar la variabilidad utilizando varianza, desvío estándar o coeficiente de
 variación.
 Analicemos algunas alternativas para estos casos.
-Rango intercuartílico (RI): es un valor numérico que informa el rango del 50% de
-los valores centrales del conjunto de datos. Se define como la diferencia entre el tercer
-cuartil y el primero. Simbólicamente:
-RI = Q3 − Q1 .
-MAD: es la mediana de los desvíos absolutos respecto de la mediana. La sigla
-proviene del inglés Median Absolute Deviation.
-Ejemplo 2.6. En el siguiente conjunto de observaciones {2, 3, 5, 8, 13, 27}, es clara la
-presencia de un valor muy alejado del conjunto de datos.
-5+8
-= 6.5.
-La mediana es x̃ =
-Los desvíos respecto de la mediana resultan: −4.5, −3.5, −1.5, 1.5, 6.5, 20.5.
 
+**Rango intercuartílico (RI)**: es un valor numérico que informa el rango del 50% de los valores centrales del conjunto de datos. Se define como la diferencia entre el tercer cuartil y el primero. Simbólicamente:
 
+$$RI = Q_3 - Q_1.$$
+
+**MAD**: es la mediana de los desvíos absolutos respecto de la mediana. La sigla proviene del inglés *Median Absolute Deviation*.
+
+Ejemplo 2.6. En el siguiente conjunto de observaciones $\{2, 3, 5, 8, 13, 27\}$, es clara la presencia de un valor muy alejado del conjunto de datos.
+
+La mediana es $\tilde{x} = \frac{5 + 8}{2} = 6.5$.
+
+Los desvíos respecto de la mediana resultan: $-4.5, -3.5, -1.5, 1.5, 6.5, 20.5$.
 
 <!-- PDF Page 23 -->
 
+Los valores absolutos de los desvíos en orden creciente son: $1.5, 1.5, 3.5, 4.5, 6.5, 20.5$.
 
-Los valores absolutos de los desvíos en orden creciente son: 1.5, 1.5, 3.5, 4.5, 6.5, 20.5.
-3.5 + 4.5
-= 4.
-La mediana de los valores absolutos de los desvíos es M AD =
-Para hacer la MAD comparable con la desviación estándar, se propone la normalización de la misma
-M AD(X)
-.
-M ADN (X) =
+La mediana de los valores absolutos de los desvíos es $MAD = \frac{3.5 + 4.5}{2} = 4$.
 
-### 0.6745 La justificación de esta normalización es que en caso de normalidad coinciden el
+Para hacer la MAD comparable con la desviación estándar, se propone la normalización de la misma:
 
-desvío estándar y la MADN [35].
-Para comprender el sentido de esta constante, consideremos Z ∼ N (0, 1) y notemos
-‹
-por med(X) = X.
+$$MADN(X) = \frac{MAD(X)}{0.6745}.$$
+
+La justificación de esta normalización es que en caso de normalidad coinciden el desvío estándar y la MADN [35].
+
+Para comprender el sentido de esta constante, consideremos $Z \sim N(0, 1)$ y notemos por $med(X) = \tilde{X}$.
+
 Por definición,
-M AD(Z) = med(|Z − med(Z)|)
-y puesto que Z es una variable simétrica con media nula, med(Z) = 0. Luego, M AD(Z) =
-med(|Z|). Si llamamos W = |Z|, entonces M AD(Z) = med(W ).
-Por otro lado, FW (w) = 2φ(w) − 1 y buscamos w
-e tal que F ( e
-w) = 0.5. En efecto,
-FW (w) = P (W ≤ w) = P (|Z| ≤ w) = Φ(w) − Φ(−w) = Φ(w) − [1 − Φ(w)] = 2φ(w) − 1
-Entonces F ( e
-w) = 2φ( e
-w) − 1 = 0.5, por lo que φ( e
-w) = 0.75 y w
-e = 0.6745.
-Dado que σ(Z) = 1 y M AD(Z) ∼
-= 0.6745, se desprende que
-M AD(Z) ∼
-= 0.6745.
-σ(Z)
-Generalizando para cualquier distribución gaussiana, si X ∼ N (µ; σ),
-Å
-ã
-X −µ
-M AD
-= M AD(X − µ) = M AD(X) ∼
-= 0.6745
-σ
-σ
-σ
+$$MAD(Z) = med(|Z - med(Z)|)$$
+y puesto que $Z$ es una variable simétrica con media nula, $med(Z) = 0$. Luego, $MAD(Z) = med(|Z|)$. Si llamamos $W = |Z|$, entonces $MAD(Z) = med(W)$.
+
+Por otro lado, $F_W(w) = 2\Phi(w) - 1$ y buscamos $\tilde{w}$ tal que $F(\tilde{w}) = 0.5$. En efecto,
+
+$$F_W(w) = P(W \le w) = P(|Z| \le w) = \Phi(w) - \Phi(-w) = \Phi(w) - [1 - \Phi(w)] = 2\Phi(w) - 1$$
+
+Entonces $F(\tilde{w}) = 2\Phi(\tilde{w}) - 1 = 0.5$, por lo que $\Phi(\tilde{w}) = 0.75$ y $\tilde{w} = 0.6745$.
+
+Dado que $\sigma(Z) = 1$ y $MAD(Z) \cong 0.6745$, se desprende que
+
+$$\frac{MAD(Z)}{\sigma(Z)} \cong 0.6745.$$
+
+Generalizando para cualquier distribución gaussiana, si $X \sim N(\mu, \sigma)$,
+
+$$MAD\left(\frac{X - \mu}{\sigma}\right) = \frac{1}{\sigma} MAD(X - \mu) = \frac{1}{\sigma} MAD(X) \cong 0.6745$$
+
 y por lo tanto
 
-2.2.4
+$$\frac{MAD(X)}{\sigma} \cong 0.6745.$$
 
-M AD(X) ∼
-= 0.6745.
-σ
-
-
-
-Otras medidas para caracterizar la distribución
+#### 2.2.4 Otras medidas para caracterizar la distribución
 
 En esta sección introducimos medidas de análisis estadístico.
-Coeficiente de asimetría muestral de Fisher: es una medida que describe la asimetría
-de la distribución de los datos con respecto a la media muestral. Su expresión analítica
+
+**Coeficiente de asimetría muestral de Fisher**: es una medida que describe la asimetría de la distribución de los datos con respecto a la media muestral. Su expresión analítica es:
+
+$$sk_F(x) = \frac{\sqrt{n} \sum_{j=1}^{n} (x_j - \bar{x})^3}{\left[\sum_{j=1}^{n} (x_j - \bar{x})^2\right]^{\frac{3}{2}}}.$$
+
+<!-- PDF Page 24 -->
+
+Figura 2.4: Asimetría negativa o a izquierda  
+Figura 2.5: Simetría  
+Figura 2.6: Asimetría positiva o a derecha  
+![Figuras 2.4, 2.5 y 2.6: Curvas de Asimetría y Simetría](imagenes/img-001.png)ibución de los datos con respecto a la media muestral. Su expresión analítica
 es
 √ Pn
 n j=1 (xj − x̄)3
