@@ -477,155 +477,116 @@ frec.catpeso = table(CatPeso) # Calcula frecuencias de las categorías de peso
 etiquetas = c("Deficiente", "Normal", "Obeso", "Con_sobrepeso") # Pone etiquetas
 
 pie3D(frec.catpeso, labels=etiquetas, explode=0.5, labelcex=0.8, radius=2, height=0.1, shade=0.7,
-col=c("palegreen1", "paleturquoise", "plum2", "lightpink1"))
-# Produce un diagrama circular
+col=c("palegreen1", "paleturquoise", "pl<!-- PDF Page 28 -->
+
+```r
+library(readxl) # Permite leer archivos xlsx
+library(dplyr)  # Paquete para manipular datos
+library(plotrix) # Paquete para manipular dibujos
+
+IMCinfantil = read_excel("C:/.../IMCinfantil.xlsx") # Importa datos de estudio
+
+CatPeso <- IMCinfantil %>% pull(CatPeso) %>%
+  plyr::mapvalues(c("D", "N", "OB", "SO"),
+  c("Deficiente", "Normal", "Obeso", "Sobrepeso"))
+# Cambia el nombre a campos categóricos de la variable CatPeso
+SEXO <- IMCinfantil %>% pull(SEXO) %>%
+  plyr::mapvalues(c("M", "F"), c("Masc", "Fem"))
+# Cambia el nombre a campos categóricos de la variable SEXO
+
+IMCinfantil$CatPeso = CatPeso
+IMCinfantil$SEXO = SEXO
+
+interior <- IMCinfantil %>% group_by_(.dots=c("CatPeso")) %>%
+  tally() %>%
+  mutate(porcent_abs=round(n/sum(n)*100, 2)) # Produce tabla del sector interior
+
+exterior <- IMCinfantil %>% group_by_(.dots=c("CatPeso", "SEXO")) %>%
+  tally() %>%
+  mutate(porcent_rel=round(n/sum(n)*100, 2)) %>%
+  ungroup() %>%
+  mutate(porcent_abs=round(n/sum(n)*100, 2)) # Produce tabla del sector exterior
+
+porcent_abs_ext = exterior$porcent_abs
+tabla = table(exterior$CatPeso)[order(unique(exterior$CatPeso))]
+
+colores = c("palegreen4", "paleturquoise4", "palevioletred4", "salmon3")
+col_int = rep_len(colores, length(int_data$CatPeso))
+col_ext = lapply(Map(rep, colores[seq_along(tabla)], tabla),
+  function(porcent_abs_ext) {
+  al <- head(seq(0, 1, length.out=length(porcent_abs_ext)+2L)[-1L], -1L)
+  Vectorize(adjustcolor)(porcent_abs_ext, alpha.f=al)})
+# Establece los colores
+
+plot.new() # Borra gráficos anteriores
+
+torta_ext = floating.pie(0.5, 0.5, exterior$porcent_abs, radius=0.25,
+border="gray45", col=unlist(col_ext))
+torta_int = floating.pie(0.5, 0.5, interior$porcent_abs, radius=0.2,
+border="white", col=col_int) # Produce los diagramas de tortas
+
+pie.labels(x=0.5, y=0.5, torta_ext, paste0(exterior$SEXO, "\n",
+exterior$porcent_rel, "% - ", exterior$n, " ind."),
+minangle=0.2, radius=0.27, cex=0.6, font=1)
+pie.labels(x=0.5, y=0.5, torta_int, paste0(interior$CatPeso, "\n",
+interior$porcent_abs, "% - ", interior$n, " ind."),
+minangle=0.2, radius=0.09, cex=0.6, font=1) # Etiqueta las regiones
 ```
 
-**Código 2.1: Generación de un diagrama circular**
-
-<!-- PDF Page 27 -->
-
-Figura 2.9: Diagrama circular con etiquetas
-
-Figura 2.10: Diagrama de tortas anidadas
-
-Fem
-62.96 % - 17 ind.
-Fem
-40.74 % - 11 ind.
-
-Masc
-59.26 % - 16 ind.
-
-Figura 2.10: Diagrama de tortas anidadas
-
-
-
-<!-- PDF Page 28 -->
-
-
-l i b r a r y ( r e a d x l ) # Permite l e e r a r c h i v o s x l s x
-l i b r a r y ( d p l y r ) # Paquete para m a n i p u l a r datos
-l i b r a r y ( p l o t r i x ) # Paquete para m a n i p u l a r d i b u j o s
-I M C i n f a n t i l =read _ e x c e l ( "C: / . . . / I M C i n f a n t i l . x l s x " )
-
-# I m p o r t a datos de e s t u d i o
-
-CatPeso <− I M C i n f a n t i l %>% p u l l ( CatPeso ) %>%
-p l y r : : mapvalues ( c ( "D" , "N" , "OB" , "SO" ) ,
-c ( " D e f i c i e n t e " , " Normal " , " Obeso " , " Sobrepeso " ) )
-# Cambia e l nombre a campos categ ó r i c o s de l a v a r i a b l e CatPeso
-SEXO <− I M C i n f a n t i l %>% p u l l (SEXO) %>%
-p l y r : : mapvalues ( c ( "M" , " F " ) , c ( " Masc " , "Fem" ) )
-# Cambia e l nombre a campos categ ó r i c o s de l a v a r i a b l e SEXO
-I M C i n f a n t i l $CatPeso=CatPeso
-I M C i n f a n t i l $SEXO=SEXO
-i n t e r i o r <− I M C i n f a n t i l %>% group_by_ ( . d o t s =c ( " CatPeso " ) ) %>%
-t a l l y ( ) %>%
-mutate ( p o r c e n t _abs=round ( n / sum ( n ) ∗ 100 , 2 ) ) # Produce t a b l a d e l s e c t o r i n t e r i o r
-e x t e r i o r <− I M C i n f a n t i l %>% group_by_ ( . d o t s =c ( " CatPeso " , "SEXO" ) ) %>%
-t a l l y ( ) %>%
-mutate ( p o r c e n t _ r e l =round ( n / sum ( n ) ∗ 100 , 2))%>%
-ungroup ( ) %>%
-mutate ( p o r c e n t _abs=round ( n / sum ( n ) ∗ 100 , 2 ) ) # Produce t a b l a d e l s e c t o r e x t e r i o r
-p o r c e n t _abs_ e x t = e x t e r i o r $ p o r c e n t _abs
-t a b l a = t a b l e ( e x t e r i o r $CatPeso ) [ o r d e r ( unique ( e x t e r i o r $CatPeso ) ) ]
-c o l o r e s =c ( " palegreen4 " , " p a l e t u r q u o i s e 4 " , " p a l e v i o l e t r e d 4 " , " salmon3 " )
-c o l _ i n t =rep _ l e n ( c o l o r e s , l e n g t h ( i n t _ data $CatPeso ) )
-c o l _ e x t = l a p p l y (Map( rep , c o l o r e s [ seq_ along ( t a b l a ) ] , t a b l a ) ,
-- u n c t i o n ( p o r c e n t _abs_ e x t ) {
-a l <− head ( seq ( 0 , 1 , l e n g t h . o u t = l e n g t h ( p o r c e n t _abs_ e x t )+2 L)[ −1L] , −1L )
-V e c t o r i z e ( a d j u s t c o l o r ) ( p o r c e n t _abs_ ext , alpha . f = a l ) } )
-# E s t a bl e c e l o s c o l o r e s
-p l o t . new ( ) # Borra g r á f i c o s a n t e r i o r e s
-t o r t a _ e x t = f l o a t i n g . p i e ( 0 . 5 , 0 . 5 , e x t e r i o r $ p o r c e n t _abs , r a d i u s =0.25 ,
-b o r d e r = " gray45 " , c o l = u n l i s t ( c o l _ e x t ) )
-t o r t a _ i n t = f l o a t i n g . p i e ( 0 . 5 , 0 . 5 , i n t e r i o r $ p o r c e n t _abs , r a d i u s = 0 . 2 ,
-b o r d e r = " w h i t e " , c o l = c o l _ i n t ) # Produce l o s diagramas de t o r t a s
-p i e . l a b e l s ( x = 0 . 5 , y = 0 . 5 , t o r t a _ ext , paste0 ( e x t e r i o r $SEXO, " \ n " ,
-e x t e r i o r $ p o r c e n t _ r e l , " % − " , e x t e r i o r $n , " i n d . " ) ,
-minangle = 0 . 2 , r a d i u s =0.27 , cex = 0 . 6 , f o n t =1)
-p i e . l a b e l s ( x = 0 . 5 , y = 0 . 5 , t o r t a _ i n t , paste0 ( i n t e r i o r $CatPeso , " \ n " ,
-i n t e r i o r $ p o r c e n t _abs , " % − " , i n t e r i o r $n , " i n d . " ) ,
-minangle = 0 . 2 , r a d i u s =0.09 , cex = 0 . 6 , f o n t =1) # E t i q u e t a l a s r e g i o n e s
-
-Código 2.2: Generación de un diagrama de tortas anidadas
-
-
+**Código 2.2: Generación de un diagrama de tortas anidadas**
 
 <!-- PDF Page 29 -->
 
 ##### 2.2.5.2 Gráfico de barras
 
-Un gráfico de barras es adecuado para representar variables cualitativas y aventaja al
+Un gráfico de barras es adecuado para representar variables cualitativas y aventaja al diagrama circular pues permite apreciar la distribución conjunta de más de una variable.
 
-diagrama circular pues que permite apreciar la distribución conjunta de más de una variable.
-
-
-
-Cantidad
-
-
-A modo de ejemplo, exhibimos la Figura 2.11 producida por el Código 2.3. Los datos
-son extraídos de https://goo.gl/Dpnx9Z.
-
-Deficiente
-
-Normal
-
-Obeso
-
-Con sobrepeso
+A modo de ejemplo, exhibimos la Figura 2.11 producida por el Código 2.3. Los datos son extraídos de `https://goo.gl/Dpnx9Z`.
 
 Figura 2.11: Diagrama de barras
 
-l i b r a r y ( r e a d x l ) # Permite l e e r a r c h i v o s x l s x
-I M C i n f a n t i l =read _ e x c e l ( "C: / . . . / I M C i n f a n t i l . x l s x " )
-# I m p o r t a l a base con l a c u a l se va a t r a b a j a r
-a t t a c h ( I M C i n f a n t i l ) # Se pone l a base en l a memoria
-b a r p l o t ( t a b l e ( CatPeso ) , y l a b =( " Cantidad " ) ,
-names . arg=c ( " D e f i c i e n t e " , " Normal " , " Obeso " , " Con sobrepeso " ) ,
-c o l =c ( " palegreen1 " , " p a l e t u r q u o i s e " , " plum2 " , " l i g h t p i n k 1 " ) )
-# Produce un diagrama de b a r r a s
+```r
+library(readxl) # Permite leer archivos xlsx
 
-Código 2.3: Generación de un diagrama de barras
+IMCinfantil = read_excel("C:/.../IMCinfantil.xlsx")
+# Importa la base con la cual se va a trabajar
+attach(IMCinfantil) # Se pone la base en la memoria
 
+barplot(table(CatPeso), ylab=("Cantidad"),
+names.arg=c("Deficiente", "Normal", "Obeso", "Con_sobrepeso"),
+col=c("palegreen1", "paleturquoise", "plum2", "lightpink1"))
+# Produce un diagrama de barras
+```
 
+**Código 2.3: Generación de un diagrama de barras**
 
 <!-- PDF Page 30 -->
 
+**Barras superpuestas**
 
-Barras superpuestas
-Este tipo de gráfico es útil cuando queremos apreciar la distribución en dos subconjuntos de individuos. A modo de ejemplo, la Figura 2.12 producida por el Código 2.4. Los
-datos son extraídos de https://goo.gl/Dpnx9Z.
-
-
-SEXO
-
-
-F
-M
-
-
-D
-
-N
-
-OB
-
-SO
-
-Categoría de peso
+Este tipo de gráfico es útil cuando queremos apreciar la distribución en dos subconjuntos de individuos. A modo de ejemplo, la Figura 2.12 producida por el Código 2.4. Los datos son extraídos de `https://goo.gl/Dpnx9Z`.
 
 Figura 2.12: Diagrama de barras superpuestas
 
-l i b r a r y ( r e a d x l ) # Permite l e e r a r c h i v o s x l s x
-l i b r a r y ( g g p l o t 2 ) # Paquete para c o n f e c c i o n a r d i b u j o s
-I M C i n f a n t i l =read _ e x c e l ( "C: / . . . / I M C i n f a n t i l . x l s x " )
-# I m p o r t a l a base con l a c u a l se va a t r a b a j a r
-a t t a c h ( I M C i n f a n t i l ) # Se pone l a base en l a memoria
-datos =data . frame ( t a b l e (SEXO, CatPeso ) ) # A r r e g l a l o s datos
-g g p l o t ( data=datos , aes ( x=CatPeso , y=Freq , f i l l =SEXO ) ) +
+```r
+library(readxl)  # Permite leer archivos xlsx
+library(ggplot2) # Paquete para confeccionar dibujos
+
+IMCinfantil = read_excel("C:/.../IMCinfantil.xlsx")
+# Importa la base con la cual se va a trabajar
+attach(IMCinfantil) # Se pone la base en la memoria
+
+datos = data.frame(table(SEXO, CatPeso)) # Arregla los datos
+
+ggplot(data=datos, aes(x=CatPeso, y=Freq, fill=SEXO)) +
+geom_bar(stat="identity", colour="blue") +
+scale_fill_brewer(palette="Paired") +
+xlab("Categoría_de_peso") +
+ylab("")
+# Produce un diagrama de barras superpuestas
+```
+
+**Código 2.4: Generación de un diagrama de barras superpuestas**g g p l o t ( data=datos , aes ( x=CatPeso , y=Freq , f i l l =SEXO ) ) +
 geom_ bar ( s t a t = " i d e n t i t y " , c o l o u r = " b l u e " ) +
 s c a l e _ f i l l _brewer ( p a l e t t e = " P a i r e d " ) +
 x l a b ( " Categor í a de peso " ) +
