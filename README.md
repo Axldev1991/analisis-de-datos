@@ -4,6 +4,13 @@ Repositorio oficial de la materia **Análisis de Datos** (Universidad Tecnológi
 
 ---
 
+## 🚀 Guía Unificada de Estudio
+
+⭐ **[Guía Completa de Estudio — Análisis de Datos](temas/guia_completa_estudio.md)** ⭐  
+ Documento maestro que integra **el 100% de los temas de la materia** en un orden pedagógico optimizado (desde la historia y los conceptos de Data Mining, pasando por la programación con Python, NumPy y Pandas, hasta la estadística univariada/multivariada y el Data Cleaning avanzado).
+
+---
+
 ## 📁 Estructura del Repositorio
 
 ```
@@ -13,6 +20,7 @@ Repositorio oficial de la materia **Análisis de Datos** (Universidad Tecnológi
 │   ├── capitulo_1.md                        # Capítulo 1: Introducción a la Minería de Datos
 │   └── capitulo_2.md                        # Capítulo 2: Introducción al Análisis de Datos
 ├── temas/                                   # Guías y módulos temáticos de estudio
+│   ├── guia_completa_estudio.md             # 🎓 GUÍA MAESTRA UNIFICADA PARA ESTUDIAR LA MATERIA
 │   ├── conceptos_basicos.md                 # Sintaxis de Python, estructuras de datos y funciones
 │   ├── numpy.md                             # Arrays ndarray, vectorización, broadcasting y álgebra lineal
 │   ├── pandas.md                            # Series, DataFrames, loc/iloc, groupby, merge y .str/.dt
@@ -33,17 +41,18 @@ Repositorio oficial de la materia **Análisis de Datos** (Universidad Tecnológi
 
 ## 📘 Contenido de la Materia
 
-### 1. Transcripción de Capítulos (`/capitulos`)
-- **[Capítulo 1: Introducción a la Minería de Datos](capitulos/capitulo_1.md)**: Transcripción completa del primer capítulo.
-- **[Capítulo 2: Introducción al Análisis de Datos](capitulos/capitulo_2.md)**: Transcripción completa del segundo capítulo.
-
-### 2. Módulos y Síntesis Temáticas (`/temas`)
+### 1. Documentación Unificada de Estudio (`/temas`)
+- 🎓 **[Guía Completa de Estudio](temas/guia_completa_estudio.md)**: Documento integral unificado ordenado pedagógicamente en 6 Unidades de Estudio.
 - **[Síntesis Temática — Capítulo 1](temas/temas_capitulo_1.md)**: Historia (Quetelet, Galton, Fisher), Big Data, Estadística vs. Data Mining, herramientas y terminología moderna (IoT, M2M, WoT, IoE).
 - **[Síntesis Temática — Capítulo 2](temas/temas_capitulo_2.md)**: Clasificación de variables, tablas de frecuencias, medidas de tendencia central, dispersión, asimetría, curtosis, gráficos, matriz de covarianzas/correlación, transformaciones y estadística robusta.
-- **[Conceptos Básicos de Python](temas/conceptos_basicos.md)**: Variables, tipos primitivos (`int`, `float`, `str`, `bool`), estructuras nativas (`list`, `tuple`, `dict`, `set`), control de flujo, *list comprehensions*, funciones `lambda`, `map`, `filter` y módulos.
-- **[Guía Completa de NumPy](temas/numpy.md)**: Manejo de `ndarray`, creación de matrices, indexación y *slicing*, máscaras booleanas, operaciones vectorizadas, *Broadcasting*, agregaciones estadísticas por ejes (`axis=0`, `axis=1`) y álgebra lineal con `np.linalg`.
-- **[Guía Completa de Pandas](temas/pandas.md)**: `Series` y `DataFrame`, lectura/escritura (CSV, Excel), selección con `.loc` e `.iloc`, filtrado booleano, transformaciones con `apply()`, patrones `groupby()`, uniones `concat`/`merge`, y accesores `.str` y `.dt`.
-- **[Limpieza y Preprocesamiento de Datos (Data Cleaning)](temas/data_cleaning.md)**: Ciclo de vida del análisis, valores inconsistentes vs. atípicos (*outliers*), manejo de duplicados, patrones de no respuesta (MCAR, MAR, MNAR), técnicas de imputación, estandarización ($Z$-score, Min-Max, logarítmica, binning, one-hot encoding), y detección de outliers univariados y multivariados (Mahalanobis, MVE, MCD).
+- **[Conceptos Básicos de Python](temas/conceptos_basicos.md)**: Variables, tipos primitivos, estructuras nativas, control de flujo, funciones `lambda` y módulos.
+- **[Guía Completa de NumPy](temas/numpy.md)**: Manejo de `ndarray`, vectorización, *Broadcasting*, agregaciones por ejes y álgebra lineal con `np.linalg`.
+- **[Guía Completa de Pandas](temas/pandas.md)**: `Series`, `DataFrame`, accesores `.loc`/`.iloc`, filtrado, `apply()`, `groupby()`, `merge` y `.str`/`.dt`.
+- **[Limpieza y Preprocesamiento de Datos](temas/data_cleaning.md)**: Diagnóstico de calidad, duplicados, faltantes (MCAR, MAR, MNAR), imputaciones, escalados y outliers univariados/multivariados (Mahalanobis, MVE, MCD).
+
+### 2. Transcripción de Capítulos (`/capitulos`)
+- **[Capítulo 1: Introducción a la Minería de Datos](capitulos/capitulo_1.md)**: Transcripción completa del primer capítulo.
+- **[Capítulo 2: Introducción al Análisis de Datos](capitulos/capitulo_2.md)**: Transcripción completa del segundo capítulo.
 
 ### 3. Enlaces Interactivos (`/recursos`)
 - **[Google Colab Notebooks](recursos/googleCollab.mc)**: Enlaces directos a los cuadernos prácticos de la materia.
