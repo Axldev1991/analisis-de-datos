@@ -600,47 +600,32 @@ Código 2.4: Generación de un diagrama de barras superpuestas
 <!-- PDF Page 31 -->
 
 
-Barras adyacentes
-En este tipo de esquemas, las barras pueden estar en posición vertical u horizontal.
-En la Figura 2.13, generada por el Código 2.5, se muestra un ejemplo. Los datos son
-extraídos de https://goo.gl/Dpnx9Z.
+**Barras adyacentes**
 
-Categoría de peso
-
-SO
-
-OB
-
-SEXO
-F
-M
-
-N
-
-D
-
-
-
-
-
+En este tipo de esquemas, las barras pueden estar en posición vertical u horizontal. En la Figura 2.13, generada por el Código 2.5, se muestra un ejemplo. Los datos son extraídos de `https://goo.gl/Dpnx9Z`.
 
 Figura 2.13: Diagrama de barras adyacentes
 
-l i b r a r y ( r e a d x l ) # Permite l e e r a r c h i v o s x l s x
-l i b r a r y ( g g p l o t 2 ) # Paquete para c o n f e c c i o n a r d i b u j o s
-I M C i n f a n t i l =read _ e x c e l ( "C: / . . . / I M C i n f a n t i l . x l s x " )
-# I m p o r t a l a base con l a c u a l se va a t r a b a j a r
-a t t a c h ( I M C i n f a n t i l ) # Se pone l a base en l a memoria
-datos =data . frame ( t a b l e (SEXO, CatPeso ) ) # A r r e g l a l o s datos
-g g p l o t ( data=datos , aes ( x=CatPeso , y=Freq , f i l l =SEXO ) ) +
-geom_ bar ( s t a t = " i d e n t i t y " , c o l o u r = " b l u e " , p o s i t i o n = " dodge " ) +
-coord _ f l i p ( ) +
-s c a l e _ f i l l _brewer ( p a l e t t e = " P a i r e d " ) +
-x l a b ( " Categor í a de peso " ) +
-ylab ( " " )
-# Produce un diagrama de b a r r a s adyacentes
+```r
+library(readxl)  # Permite leer archivos xlsx
+library(ggplot2) # Paquete para confeccionar dibujos
 
-Código 2.5: Generación de un diagrama de barras adyacentes
+IMCinfantil = read_excel("C:/.../IMCinfantil.xlsx")
+# Importa la base con la cual se va a trabajar
+attach(IMCinfantil) # Se pone la base en la memoria
+
+datos = data.frame(table(SEXO, CatPeso)) # Arregla los datos
+
+ggplot(data=datos, aes(x=CatPeso, y=Freq, fill=SEXO)) +
+geom_bar(stat="identity", colour="blue", position="dodge") +
+coord_flip() +
+scale_fill_brewer(palette="Paired") +
+xlab("Categoría_de_peso") +
+ylab("")
+# Produce un diagrama de barras adyacentes
+```
+
+**Código 2.5: Generación de un diagrama de barras adyacentes**
 
 
 
@@ -649,38 +634,22 @@ Código 2.5: Generación de un diagrama de barras adyacentes
 
 ##### 2.2.5.3 Gráfico de bastones
 
-Es adecuado para representar la distribución de frecuencias de una variable discreta.
-Mostramos como el Código 2.6 genera la 
-Figura 2.14
-![Figura 2.14: Diagrama de bastones](imagenes/img-000.png)
-.
-Modelo =2010:2016 # I n g r e s a datos
-Ventas=c ( 2 , 3 , 7 , 4 , 9 , 0 , 5 ) # I n g r e s a datos
-p l o t ( Modelo , Ventas , t y p e = " h " , l t y = " s o l i d " , lwd =4 ,
-c o l =c ( " palegreen1 " , " p a l e t u r q u o i s e " , " plum2 " , " l i g h t p i n k 1 " , " deepskyblue3 " ,
-" darkorchid2 " , " indianred1 " ) )
+Es adecuado para representar la distribución de frecuencias de una variable discreta. Mostramos como el Código 2.6 genera la Figura 2.14.
+
+```r
+Modelo = 2010:2016 # Ingresa datos
+Ventas = c(2, 3, 7, 4, 9, 0, 5) # Ingresa datos
+
+plot(Modelo, Ventas, type="h", lty="solid", lwd=4,
+col=c("palegreen1", "paleturquoise", "plum2", "lightpink1", "deepskyblue3",
+"darkorchid2", "indianred1"))
 # Produce un diagrama de bastones
+```
 
+**Código 2.6: Generación de un diagrama de bastones**
 
-
-Ventas
-
-
-Código 2.6: Generación de un diagrama de bastones
-
-
-
-
-
-
-
-
-Modelo
-
-
-Figura 2.14
+Figura 2.14: Diagrama de bastones  
 ![Figura 2.14: Diagrama de bastones](imagenes/img-000.png)
-: Diagrama de bastones
 
 
 ##### 2.2.5.4 Histograma y polígono de frecuencias
@@ -708,28 +677,9 @@ de la distribución.
 
 
 
-Las Figuras 2.15 y 2.16 se obtienen mediante el Código 2.7. Los datos son extraídos
-de https://goo.gl/Dpnx9Z.
+Las Figuras 2.15 y 2.16 se obtienen mediante el Código 2.7. Los datos son extraídos de `https://goo.gl/Dpnx9Z`.
 
-
-
-
-
-
-
-
-PESO
-
-
-
-
-
-
-Figura 2.15: Histograma
-
-
-
-PESO
+Figura 2.15: Histograma  
 
 Figura 2.16: Polígono de frecuencias
 
