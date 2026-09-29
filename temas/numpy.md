@@ -8,74 +8,110 @@
 
 ## Tabla de Contenidos
 1. [Introducción a NumPy y el `ndarray`](#1-introducción-a-numpy-y-el-ndarray)
-2. [Creación de Arrays](#2-creación-de-arrays)
-3. [Atributos Fundamentales de un Array](#3-atributos-fundamentales-de-un-array)
-4. [Indexación, Slicing y Filtros Booleanos](#4-indexación-slicing-y-filtros-booleanos)
-5. [Operaciones Vectorizadas (Element-wise)](#5-operaciones-vectorizadas-element-wise)
-6. [Broadcasting (Difusión)](#6-broadcasting-difusión)
-7. [Estadística Descriptiva y Agregación](#7-estadística-descriptiva-y-agregación)
-8. [Álgebra Lineal con `np.linalg`](#8-álgebra-lineal-con-nplinalg)
+2. [Funciones Generadoras de Arrays](#2-funciones-generadoras-de-arrays)
+3. [Atributos de la Clase `numpy.ndarray`](#3-atributos-de-la-clase-numpyndarray)
+4. [Métodos Principales de la Clase `numpy.ndarray`](#4-métodos-principales-de-la-clase-numpyndarray)
+5. [Indexación, Slicing y Filtros Booleanos](#5-indexación-slicing-y-filtros-booleanos)
+6. [Operaciones Vectorizadas y SIMD](#6-operaciones-vectorizadas-y-simd)
+7. [Broadcasting (Difusión)](#7-broadcasting-difusión)
+8. [Estadística Descriptiva y Agregación por Eje](#8-estadística-descriptiva-y-agregación-por-eje)
+9. [Álgebra Lineal con `np.linalg`](#9-álgebra-lineal-con-nplinalg)
+10. [Casos de Uso de NumPy](#10-casos-de-uso-de-numpy)
 
 ---
 
 ## 1. Introducción a NumPy y el `ndarray`
 
-**NumPy** (*Numerical Python*) es la librería fundamental sobre la cual se erige todo el ecosistema de computación científica y *Data Science* en Python. 
+**NumPy** (*Numerical Python*) es la librería fundamental de código abierto para la computación científica, matricial y numérica en Python. 
 
-Su objeto central es el **`ndarray`** (N-dimensional array), un contenedor homogéneo de datos contiguos en memoria, escrito internamente en C para lograr alta eficiencia computacional y evitar los costos de inspección de tipo dinámico de las listas nativas de Python.
+Su objeto central es la clase **`numpy.ndarray`** (N-dimensional array), un contenedor homogéneo de datos almacenados en un bloque de memoria contiguo escrito en C para lograr alta eficiencia computacional y evitar los costos de la comprobación dinámica de tipos de las listas de Python.
 
-### Ventajas clave:
-- **Homogeneidad**: Todos los elementos deben ser del mismo tipo de dato (`dtype`).
-- **Vectorización**: Ejecuta operaciones numéricas en bloque sin necesidad de bucles explícitos `for`.
-- **Eficiencia en memoria**: Ocupa un bloque de memoria contiguo, lo que maximiza el rendimiento del *cache* del procesador.
+### Características Generales (según material de cátedra):
+- Desarrollada en lenguaje C para el trabajo con arrays multidimensionales y gran cantidad de información.
+- Ofrece recursos para matemática, álgebra lineal y disciplinas científicas.
+- Código abierto y multiplataforma.
+- Sintaxis de alto nivel optimizada bajo altos estándares de calidad.
 
 ---
 
-## 2. Creación de Arrays
+## 2. Funciones Generadoras de Arrays
+
+NumPy proporciona funciones clave para la creación e inicialización de arrays:
+
+| Función | Descripción | Ejemplo de Sintaxis |
+| :--- | :--- | :--- |
+| **`np.zeros()`** | Crea un array lleno de ceros según la cantidad de elementos o forma (*shape*). | `np.zeros(5)` o `np.zeros((3, 3))` |
+| **`np.ones()`** | Crea un array lleno de unos. | `np.ones((2, 4), dtype=int)` |
+| **`np.empty()`** | Crea un array sin inicializar (con valores aleatorios en el buffer de memoria). | `np.empty((2, 2))` |
+| **`np.arange()`** | Adaptación de `range()` a NumPy. Permite dar pasos con decimales. | `np.arange(0, 10, 0.5)` |
+| **`np.linspace()`** | Crea un array con un número exacto de elementos en un intervalo equiespaciado. | `np.linspace(0, 1, 5)` |
+| **`np.sort()`** | Ordena los elementos de un array (por defecto en orden ascendente). | `np.sort(arr)` |
+| **`np.concatenate()`** | Concatena dos o más arrays a lo largo de un eje especificado. | `np.concatenate((a, b), axis=0)` |
+| **`np.expand_dims()`** | Agrega dimensiones adicionales al array (*expand dimensions*). | `np.expand_dims(arr, axis=0)` |
 
 ```python
 import numpy as np
 
-# Desde una lista o lista de listas
-a1d = np.array([1, 2, 3, 4, 5])
-a2d = np.array([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])
+# Ejemplos de uso
+cero_matriz = np.zeros((2, 3))
+rango_decimal = np.arange(0, 5, 0.5)      # [0. , 0.5, 1. , 1.5, ... 4.5]
+puntos = np.linspace(0, 100, 5)           # [0., 25., 50., 75., 100.]
 
-# Funciones generadoras
-zeros = np.zeros((3, 4))             # Matriz de ceros 3x4
-ones  = np.ones((2, 3), dtype=int)   # Matriz de unos 2x3 enteros
-full  = np.full((2, 2), 7)           # Matriz 2x2 con valor 7
-eye   = np.eye(3)                    # Matriz identidad 3x3
+# Ordenamiento y concatenación
+desorden = np.array([4, 1, 7, 2])
+ordenado = np.sort(desorden)              # [1, 2, 4, 7]
 
-# Rangos numéricos
-secuencia = np.arange(0, 10, 2)      # [0, 2, 4, 6, 8]
-puntos    = np.linspace(0, 1, 5)     # 5 puntos equiespaciados entre 0 y 1
-
-# Números aleatorios
-rand_uniform = np.random.rand(3, 3)  # Distribución Uniforme U(0, 1)
-rand_normal  = np.random.randn(3, 3) # Distribución Normal N(0, 1)
+a = np.array([1, 2])
+b = np.array([3, 4])
+union = np.concatenate((a, b))            # [1, 2, 3, 4]
+expansion = np.expand_dims(a, axis=0)     # Shape (1, 2)
 ```
 
 ---
 
-## 3. Atributos Fundamentales de un Array
+## 3. Atributos de la Clase `numpy.ndarray`
 
-Dado un `ndarray`, se pueden consultar sus propiedades dimensionales y de tipo:
+A diferencia de las listas nativas de Python, un objeto `ndarray` tiene **tamaño fijo** y **elementos homogéneos del mismo tipo de dato**. Sus atributos principales son:
+
+| Atributo | Descripción | Ejemplo / Retorno |
+| :--- | :--- | :--- |
+| **`ndim`** | Retorna el número de dimensiones del array. | `2` para matriz bidimensional |
+| **`shape`** | Tupla con la cantidad de elementos en cada dimensión. | `(3, 4)` |
+| **`dtype`** | Tipo de datos numéricos que contiene el array. | `int32`, `float64`, `bool` |
+| **`size`** | Cantidad total de elementos contenidos en la matriz. | `12` para matriz (3, 4) |
+| **`itemsize`** | Tamaño en bytes de cada elemento del array. | `8` bytes para `float64` |
+| **`data`** | Buffer que contiene los elementos del array en memoria física. | `<memory at 0x...>` |
+| **`T`** | Transpuesta del array (intercambia filas por columnas). | `arr.T` |
 
 ```python
-arr = np.array([[10, 20, 30], [40, 50, 60]], dtype=np.float64)
+matriz = np.array([[10, 20, 30], [40, 50, 60]], dtype=np.float64)
 
-print("Dimensión (ndim):", arr.ndim)   # 2
-print("Forma (shape):", arr.shape)     # (2, 3)
-print("Total elementos (size):", arr.size) # 6
-print("Tipo de dato (dtype):", arr.dtype)  # float64
+print("ndim:", matriz.ndim)       # 2
+print("shape:", matriz.shape)     # (2, 3)
+print("dtype:", matriz.dtype)     # float64
+print("size:", matriz.size)       # 6
+print("itemsize:", matriz.itemsize)# 8 bytes
+print("data:", matriz.data)       # Buffer contiguo
+print("Transpuesta:\n", matriz.T) # Shape (3, 2)
 ```
 
 ---
 
-## 4. Indexación, Slicing y Filtros Booleanos
+## 4. Métodos Principales de la Clase `numpy.ndarray`
+
+| Método | Descripción | Ejemplo |
+| :--- | :--- | :--- |
+| **`flatten()`** | Convierte el array a una sola dimensión (1D) retornando una **copia en memoria**. | `arr.flatten()` |
+| **`reshape()`** | Cambia la forma (*shape*) del array sin modificar sus datos (genera una **vista** si es contiguo). | `arr.reshape((3, 2))` |
+| **`sum()`** | Devuelve la suma de los elementos (o a lo largo de un eje `axis`). | `arr.sum()` |
+| **`mean()`** | Estima la media aritmética de los datos. | `arr.mean()` |
+| **`std()`** | Estima la desviación estándar de los datos. | `arr.std()` |
+
+---
+
+## 5. Indexación, Slicing y Filtros Booleanos
 
 ### Slicing N-dimensional: `arr[filas, columnas]`
-
 ```python
 matriz = np.array([
     [10, 20, 30, 40],
@@ -83,122 +119,81 @@ matriz = np.array([
     [90, 100, 110, 120]
 ])
 
-print(matriz[0, 1])      # Elemento en fila 0, columna 1 -> 20
+print(matriz[0, 1])      # Elemento fila 0, col 1 -> 20
 print(matriz[:2, 1:3])   # Submatriz filas 0-1, cols 1-2
-print(matriz[:, 2])      # Todas las filas, columna 2 -> [30, 70, 110]
 ```
 
 ### Máscaras Booleanas (*Boolean Indexing*)
-
-Permite filtrar arrays según condiciones lógicas sin usar condicionales `if`:
-
 ```python
-datos = np.array([12, 45, 78, 23, 56, 89, 90, 11])
-
-# Crear máscara booleana
-mascara = datos > 50  # [False, False,  True, False,  True,  True,  True, False]
-
-# Filtrar elementos
-filtrados = datos[mascara]  # [78, 56, 89, 90]
-
-# Operaciones lógicas combinadas: & (AND), | (OR), ~ (NOT)
-filtro_compuesto = datos[(datos >= 20) & (datos <= 80)]
+datos = np.array([12, 45, 78, 23, 56, 89])
+filtrados = datos[datos > 50] # [78, 56, 89]
 ```
 
 ---
 
-## 5. Operaciones Vectorizadas (Element-wise)
+## 6. Operaciones Vectorizadas y SIMD
 
-Las operaciones numéricas se aplican elemento por elemento (*element-wise*):
+Las operaciones numéricas se aplican elemento a elemento (*element-wise*):
 
 ```python
 a = np.array([1, 2, 3])
 b = np.array([10, 20, 30])
 
 print(a + b)     # [11, 22, 33]
-print(a * b)     # [10, 40, 90] (Multiplicación elemento a elemento)
+print(a * b)     # [10, 40, 90]
 print(a ** 2)    # [1, 4, 9]
-print(np.sin(a)) # Seno de cada elemento
 ```
+
+A nivel de procesador (CPU), los registros de hardware ejecutados por NumPy ejecutan instrucciones **SIMD (*Single Instruction, Multiple Data*)**, aplicando la misma operación aritmética sobre múltiples valores en un solo ciclo de reloj.
 
 ---
 
-## 6. Broadcasting (Difusión)
+## 7. Broadcasting (Difusión)
 
-El **Broadcasting** describe la capacidad de NumPy para realizar operaciones aritméticas sobre arrays con formas (*shapes*) distintas.
-
-### Reglas de Broadcasting:
-1. Si los arrays no tienen el mismo número de dimensiones, se anteponen dimensiones de tamaño 1 a la forma del array más pequeño.
-2. Dos dimensiones son compatibles cuando:
-   - Son iguales, o
-   - Una de ellas es igual a 1.
+Permite realizar operaciones aritméticas entre arrays de formas distintas.
 
 $$\begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} + \begin{bmatrix} 10 & 20 & 30 \end{bmatrix} = \begin{bmatrix} 11 & 22 & 33 \\ 14 & 25 & 36 \end{bmatrix}$$
 
-```python
-# Ejemplo de Broadcasting en código
-matriz = np.array([[1, 2, 3], [4, 5, 6]]) # Shape (2, 3)
-vector = np.array([10, 20, 30])           # Shape (3,) -> se difunde a (2, 3)
+---
 
-resultado = matriz + vector
-print(resultado)
-# [[11 22 33]
-#  [14 25 36]]
+## 8. Estadística Descriptiva y Agregación por Eje
+
+El parámetro `axis` permite especificar la dirección de agregación:
+- `axis=0`: Reduce las **filas** (opera verticalmente por columnas).
+- `axis=1`: Reduce las **columnas** (opera horizontalmente por filas).
+
+```python
+X = np.array([[10, 20, 30], [40, 50, 60]])
+
+print("Suma por columna (axis=0):", X.sum(axis=0)) # [50, 70, 90]
+print("Media por fila (axis=1):", X.mean(axis=1))   # [20., 50.]
 ```
 
 ---
 
-## 7. Estadística Descriptiva y Agregación
-
-NumPy proporciona funciones vectorizadas para calcular estadísticos descriptivos. El argumento `axis` especifica el eje a lo largo del cual se reduce la matriz:
-- `axis=0`: Reduce las **filas** (opera a lo largo de las columnas).
-- `axis=1`: Reduce las **columnas** (opera a lo largo de las filas).
-
-```python
-X = np.array([
-    [10, 20, 30],
-    [40, 50, 60]
-])
-
-print("Suma total:", np.sum(X))             # 210
-print("Suma por columna (axis=0):", np.sum(X, axis=0)) # [50, 70, 90]
-print("Suma por fila (axis=1):", np.sum(X, axis=1))    # [60, 150]
-
-# Estadísticos de centralidad y dispersión
-media = np.mean(X)
-desvio = np.std(X)
-varianza = np.var(X)
-mediana = np.median(X)
-minimo, maximo = np.min(X), np.max(X)
-pos_max = np.argmax(X) # Índice del valor máximo plano
-```
-
----
-
-## 8. Álgebra Lineal con `np.linalg`
-
-NumPy soporta operaciones algebraicas matriciales fundamentales:
-
-### Producto Matricial vs Element-wise
+## 9. Álgebra Lineal con `np.linalg`
 
 ```python
 A = np.array([[1, 2], [3, 4]])
 B = np.array([[5, 6], [7, 8]])
 
-# Producto punto / multiplicacion matricial: A @ B o np.dot(A, B)
-producto_matricial = A @ B
-# [[19 22]
-#  [43 50]]
+# Producto matricial (@ o np.dot)
+C = A @ B
 
-# Transpuesta
-A_transpuesta = A.T
-
-# Inversa y Determinante
-det_A = np.linalg.det(A)         # -2.0
-inv_A = np.linalg.inv(A)         # Inversa de A
-
-# Resolución de sistemas de ecuaciones lineales: A * x = b
-b = np.array([5, 11])
-x = np.linalg.solve(A, b)
-print("Solución x:", x)          # [1., 2.]
+# Operaciones matriciales avanzadas
+det_A = np.linalg.det(A)         # Determinante
+inv_A = np.linalg.inv(A)         # Inversa
+sol_x = np.linalg.solve(A, [5, 11]) # Sistema A * x = b
 ```
+
+---
+
+## 10. Casos de Uso de NumPy
+
+De acuerdo al material teórico de la cátedra, los principales casos de aplicación son:
+
+1. **Big Data**: Procesamiento masivo de torrentes de datos numéricos en memoria contigua.
+2. **Estadística Avanzada**: Cómputo de matrices de covarianza, varianzas y correlaciones.
+3. **Álgebra Lineal**: Transformaciones de coordenadas, resolución de sistemas y descomposición matricial.
+4. **Modelos de Procesamiento del Lenguaje Natural (NLP)**: Representación de vectores de palabras (*word embeddings*) y matrices TF-IDF.
+5. **Procesamiento de Imágenes**: Manipulación de imágenes como tensores 3D de píxeles (alto, ancho, canales RGB).

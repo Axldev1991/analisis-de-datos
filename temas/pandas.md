@@ -8,208 +8,159 @@
 
 ## Tabla de Contenidos
 1. [Introducción a Pandas](#1-introducción-a-pandas)
-2. [Estructuras Principales: Series y DataFrames](#2-estructuras-principales-series-y-dataframes)
-3. [Lectura e Inspección de Datos](#3-lectura-e-inspección-de-datos)
-4. [Indexación y Selección (`loc` e `iloc`)](#4-indexación-y-selección-loc-e-iloc)
-5. [Filtrado Booleano y Consultas](#5-filtrado-booleano-y-consultas)
-6. [Transformación y Aplicación de Funciones (`apply`)](#6-transformación-y-aplicación-de-funciones-apply)
-7. [Agrupamiento y Agregación (`groupby`)](#7-agrupamiento-y-agregación-groupby)
-8. [Combinación de Datasets (`concat` y `merge`)](#8-combinación-de-datasets-concat-y-merge)
-9. [Procesamiento de Texto (`.str`) y Fechas (`.dt`)](#9-procesamiento-de-texto-str-y-fechas-dt)
+2. [Funciones de Carga e Ingesta de Datos](#2-funciones-de-carga-e-ingesta-de-datos)
+3. [Estructuras de Datos Básicas: `Series` y `DataFrame`](#3-estructuras-de-datos-básicas-series-y-dataframe)
+4. [Atributos y Métodos de la Clase `Series`](#4-atributos-y-métodos-de-la-clase-series)
+5. [Atributos y Métodos de la Clase `DataFrame`](#5-atributos-y-métodos-de-la-clase-dataframe)
+6. [Selección de Columnas y Filtrado de Filas](#6-selección-de-columnas-y-filtrado-de-filas)
+7. [Manejo de Índices (`loc` e `iloc`)](#7-manejo-de-índices-loc-e-iloc)
+8. [Procesamiento de Fechas (`to_datetime` y `.dt`)](#8-procesamiento-de-fechas-to_datetime-y-dt)
+9. [Procesamiento de Cadenas de Texto (`.str`)](#9-procesamiento-de-cadenas-de-texto-str)
+10. [Agrupamiento y Uniones (`groupby` y `merge`)](#10-agrupamiento-y-uniones-groupby-y-merge)
 
 ---
 
 ## 1. Introducción a Pandas
 
-**Pandas** es la librería de referencia para la manipulación y análisis de datos estructurados (tabulares) en Python. Construida sobre NumPy, proporciona estructuras de datos flexibles con etiquetas en filas y columnas, permitiendo realizar operaciones de limpieza, filtrado, transformación y agregación de forma expresiva y eficiente.
+**Pandas** es una librería de código abierto y de alto nivel en Python orientada al trabajo con **DataFrames** (estructuras tabulares). Fue desarrollada inicialmente en **2008 por Wes McKinney**.
+
+### Características Generales (según material de cátedra):
+- Orientada al trabajo con DataFrames (estructuras bidimensionales y relacionales).
+- Código abierto y multiplataforma.
+- Optimizada bajo altos estándares de calidad sobre la base computacional de NumPy.
+- Sintaxis de alto nivel altamente expresiva.
 
 ---
 
-## 2. Estructuras Principales: Series y DataFrames
+## 2. Funciones de Carga e Ingesta de Datos
 
-### `Series`
-Vector unidimensional etiquetado (homogéneo o heterogéneo en concepto, pero homogéneo en `dtype`).
+Pandas ofrece funciones para la lectura y exportación multiformato:
+
+| Función | Descripción | Ejemplo de Sintaxis |
+| :--- | :--- | :--- |
+| **`pd.read_csv()`** | Abre e importa archivos CSV. | `df = pd.read_csv("datos.csv")` |
+| **`pd.read_excel()`** | Abre e importa archivos Excel (`.xlsx`). | `df = pd.read_excel("datos.xlsx")` |
+| **`pd.read_json()`** | Carga archivos en formato JSON. | `df = pd.read_json("datos.json")` |
+| **`pd.DataFrame()`** | Crea manualmente una instancia de DataFrame. | `df = pd.DataFrame(diccionario)` |
+| **`pd.to_datetime()`** | Convierte una columna o vector a formato fecha/tiempo. | `df["fecha"] = pd.to_datetime(df["fecha"])` |
+| **`pd.merge()`** | Une dos tablas/DataFrames estilo SQL. | `pd.merge(df1, df2, on="id")` |
+
+---
+
+## 3. Estructuras de Datos Básicas: `Series` y `DataFrame`
+
+- **`Series`**: Vectores unidimensionales etiquetados que contienen datos de cualquier tipo. Están construidos internamente sobre la base de `numpy.ndarray`.
+- **`DataFrame`**: Estructura de datos bidimensional (tabla) capaz de contener arrays de dos dimensiones o tablas con filas y columnas heterogéneas.
+
+---
+
+## 4. Atributos y Métodos de la Clase `Series`
+
+### Atributos Clave:
+- **`index`**: Retorna las etiquetas del índice de la serie.
+- **`values`**: Retorna los valores subyacentes como un `ndarray`.
+- **`name`**: Atributo opcional que almacena el nombre de la serie.
+- **`is_unique`**: Retorna `True` o `False` según si todos los valores son únicos o existen duplicados.
+- *Nota de cátedra*: Posee la mayoría de los atributos de `ndarray` (excepto `data`, `itemsize` y `strides`).
+
+### Métodos Principales:
+- **`head(n)`**: Muestra los primeros $n$ elementos.
+- **`describe()`**: Retorna medidas de tendencia central y otras estadísticas descriptivas.
+- **`dropna()`**: Elimina valores nulos de la serie.
+- **`apply(func)`**: Aplica una función a cada elemento de la serie.
+- *Nota de cátedra*: Posee la mayoría de los métodos de `ndarray` (excepto `flatten()` y `reshape()`).
+
+---
+
+## 5. Atributos y Métodos de la Clase `DataFrame`
+
+### Atributos Principales:
+- **`shape`**: Devuelve una tupla con la cantidad de filas y columnas.
+- **`columns`**: Devuelve los nombres de las columnas.
+- **`dtypes`**: Retorna los tipos de datos de cada columna.
+- **`index`**: Atributo de índice de filas que se puede acceder o setear.
+
+### Métodos Principales:
+- **`to_csv()`**: Guarda un DataFrame como archivo CSV.
+- **`to_excel()`**: Guarda un DataFrame como archivo Excel.
+- **`head(n)`**: Muestra las primeras $n$ filas.
+- **`info()`**: Retorna un resumen estructural del DataFrame (filas, columnas, nulos, dtypes).
+- **`groupby()`**: Agrupa filas según una columna especificada por parámetro.
+
+---
+
+## 6. Selección de Columnas y Filtrado de Filas
+
+### Selección de Columnas:
+- **Por Nombre**:
+  - Una columna: `df.id` o `df["id"]`
+  - Subconjunto de columnas: `df[["id", "damage"]]`
+- **Por Posición**:
+  - Una columna por posición: `df.iloc[:, 1]` (selecciona la primera columna tras el índice)
+  - Varias columnas por posición: `df.iloc[:, 1:4]` (selecciona las columnas en posiciones 1 a 3)
+
+### Filtrado de Filas:
+- **Por Posición**:
+  - `df.iloc[2, :]`: Retorna todas las columnas de la fila en posición 2.
+- **Según Condiciones Logicas**:
+  - `df.loc[df.damage == 3, ["id", "damage"]]`: Retorna las columnas `"id"` y `"damage"` de todas las filas cuyo valor en `"damage"` sea igual a 3.
+- **Consulta con `.query()`**:
+  - `df.query("damage > 2")`: Retorna las filas cuyo valor en `"damage"` sea mayor a 2 con sintaxis limpia.
+
+---
+
+## 7. Manejo de Índices (`loc` e `iloc`)
+
+Los índices simplifican el acceso a los datos. El atributo `df.index` permite consultar o definir el índice de filas.
+
+```python
+# loc utiliza nombres de filas y columnas
+df_filtrado = df.loc[df["damage"] == 3, ["id", "damage"]]
+
+# iloc utiliza posiciones numéricas enteras
+sub_matriz = df.iloc[:5, 0:3]
+```
+
+---
+
+## 8. Procesamiento de Fechas (`to_datetime` y `.dt`)
+
+Con la función `pd.to_datetime()` se transforma una columna en formato fecha (`datetime64`). Luego, mediante el accesor **`.dt`**, se accede a los componentes individuales:
 
 ```python
 import pandas as pd
-import numpy as np
 
-s = pd.Series([80, 90, 70, 85], index=["Mariana", "Maia", "Sabrina", "Carla"], name="Cordialidad")
-print(s)
-# Mariana    80
-# Maia       90
-# Sabrina    70
-# Carla      85
-# Name: Cordialidad, dtype: int64
-```
+# Convertir columna a fecha
+df["fecha"] = pd.to_datetime(df["fecha_string"])
 
-### `DataFrame`
-Estructura bidimensional (tabla de datos) compuesta por una colección ordenada de columnas, donde cada columna es una `Series`.
-
-```python
-datos = {
-    "Candidata": ["Mariana", "Maia", "Sabrina", "Daniela", "Alejandra", "Carla"],
-    "Juez1_Cordialidad": [80, 80, 90, 80, 70, 90],
-    "Juez1_Presencia": [90, 90, 60, 50, 60, 85],
-    "Juez1_Idioma": [70, 60, 50, 50, 50, 60]
-}
-
-df = pd.DataFrame(datos)
-print(df)
+# Accesores del atributo .dt
+df["anio"] = df["fecha"].dt.year
+df["mes"]  = df["fecha"].dt.month
+df["dia"]  = df["fecha"].dt.day
 ```
 
 ---
 
-## 3. Lectura e Inspección de Datos
+## 9. Procesamiento de Cadenas de Texto (`.str`)
 
-### Importación de Archivos
-```python
-# Carga desde CSV / Excel
-df_csv = pd.read_csv("datos.csv", sep=",", encoding="utf-8")
-df_excel = pd.read_excel("IMCinfantil.xlsx", sheet_name="Hoja1")
+Pandas simplifica el trabajo con texto vectorizado mediante el accesor **`.str`**:
 
-# Exportación
-df.to_csv("resultado.csv", index=False)
-df.to_excel("resultado.xlsx", index=False)
-```
-
-### Inspección Rápida
-```python
-print("Forma del DataFrame (filas, columnas):", df.shape)
-print("\nPrimeras 5 filas:")
-print(df.head())
-
-print("\nInformación estructural y nulos:")
-df.info()
-
-print("\nEstadística descriptiva de variables numéricas:")
-print(df.describe())
-```
-
----
-
-## 4. Indexación y Selección (`loc` e `iloc`)
-
-Pandas provee dos accesores principales para la selección precisa de datos:
-
-| Accesor | Criterio de Selección | Ejemplo |
+| Función de `.str` | Descripción | Ejemplo de Sintaxis |
 | :--- | :--- | :--- |
-| **`.loc[]`** | Basado en **Etiquetas** (nombres de índice / columna) | `df.loc[0:2, 'Candidata':'Juez1_Presencia']` |
-| **`.iloc[]`** | Basado en **Posición Numérica** (entera 0-based) | `df.iloc[0:3, 0:2]` |
-
-```python
-# Selección por etiquetas (.loc)
-sub_df = df.loc[df["Candidata"] == "Mariana", ["Juez1_Cordialidad", "Juez1_Presencia"]]
-
-# Selección por posiciones numéricas (.iloc)
-primeras_dos_filas = df.iloc[:2, :3]
-```
+| **`str.lower()`** | Convierte el texto a minúsculas. | `df["texto"].str.lower()` |
+| **`str.upper()`** | Convierte el texto a mayúsculas. | `df["texto"].str.upper()` |
+| **`str.slice()`** | Corta una subcadena por posiciones. | `df["texto"].str.slice(0, 3)` |
+| **`str.split()`** | Divide la cadena por un delimitador. | `df["texto"].str.split(" ")` |
+| **`str.replace()`** | Reemplaza subcadenas. | `df["texto"].str.replace("a", "b")` |
 
 ---
 
-## 5. Filtrado Booleano y Consultas
-
-Permite seleccionar filas mediante condiciones lógicas:
+## 10. Agrupamiento y Uniones (`groupby` y `merge`)
 
 ```python
-# Filtrar candidatas con Cordialidad >= 80 e Idioma >= 60
-filtro = (df["Juez1_Cordialidad"] >= 80) & (df["Juez1_Idioma"] >= 60)
-candidatas_destacadas = df[filtro]
+# Agrupamiento por columna
+resumen = df.groupby("categoria")["damage"].mean()
 
-# Método .isin() para consultar listas de valores
-seleccionadas = df[df["Candidata"].isin(["Mariana", "Carla"])]
-
-# Método .query() para sintaxis más legible
-resultado = df.query("Juez1_Cordialidad >= 80 and Juez1_Idioma >= 60")
-```
-
----
-
-## 6. Transformación y Aplicación de Funciones (`apply`)
-
-### Creación de Columnas Derivadas
-```python
-# Operaciones vectorizadas directas
-df["Promedio_Juez1"] = (df["Juez1_Cordialidad"] + df["Juez1_Presencia"] + df["Juez1_Idioma"]) / 3
-
-# Método .apply() fila por fila (axis=1) o columna por columna (axis=0)
-def categorizar_promedio(row):
-    prom = row["Promedio_Juez1"]
-    if prom >= 80:
-        return "Sobresaliente"
-    elif prom >= 70:
-        return "Satisfactorio"
-    else:
-        return "Regular"
-
-df["Categoria"] = df.apply(categorizar_promedio, axis=1)
-```
-
----
-
-## 7. Agrupamiento y Agregación (`groupby`)
-
-El patrón **Split-Apply-Combine** permite agrupar datos según categorías y calcular agregaciones:
-
-```python
-# Agrupar por Categoría y calcular estadísticas
-resumen = df.groupby("Categoria").agg(
-    Promedio_Cordialidad=("Juez1_Cordialidad", "mean"),
-    Max_Idioma=("Juez1_Idioma", "max"),
-    Cantidad=("Candidata", "count")
-).reset_index()
-
-print(resumen)
-```
-
----
-
-## 8. Combinación de Datasets (`concat` y `merge`)
-
-### Concatenación (`pd.concat`)
-Une DataFrames a lo largo de las filas (`axis=0`) o columnas (`axis=1`).
-
-```python
-# Apilar DataFrames verticalmente
-df_juez1 = df[["Candidata", "Juez1_Cordialidad"]]
-df_juez2 = df[["Candidata", "Juez1_Presencia"]]
-
-df_concatenado = pd.concat([df_juez1, df_juez2], axis=0, ignore_index=True)
-```
-
-### Uniones Estilo SQL (`pd.merge`)
-Combina DataFrames utilizando claves comunes (*joins*).
-
-```python
-df_info = pd.DataFrame({
-    "Candidata": ["Mariana", "Maia", "Sabrina"],
-    "Edad": [24, 27, 22]
-})
-
-# Inner join, Left join, Right join, Outer join
-df_merged = pd.merge(df, df_info, on="Candidata", how="inner")
-```
-
----
-
-## 9. Procesamiento de Texto (`.str`) y Fechas (`.dt`)
-
-### Accesor de Cadenas (`.str`)
-Permite aplicar funciones de string sobre columnas tipo objeto/texto de forma vectorizada.
-
-```python
-df["Candidata_Mayusc"] = df["Candidata"].str.upper()
-df["Tiene_A"] = df["Candidata"].str.contains("a", case=False)
-df["Candidata_Limpia"] = df["Candidata"].str.strip().str.replace(" ", "_")
-```
-
-### Accesor de Fechas (`.dt`) y `pd.to_datetime()`
-```python
-# Convertir columna a formato datetime
-df["Fecha_Entrevista"] = pd.to_datetime(["2026-03-15", "2026-03-16", "2026-03-17", "2026-03-18", "2026-03-19", "2026-03-20"])
-
-# Extraer componentes de fecha
-df["Anio"] = df["Fecha_Entrevista"].dt.year
-df["Mes"] = df["Fecha_Entrevista"].dt.month
-df["Dia_Semana"] = df["Fecha_Entrevista"].dt.day_name()
+# Uniones de tablas
+df_unido = pd.merge(df1, df2, on="id", how="inner")
 ```

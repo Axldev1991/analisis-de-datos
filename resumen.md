@@ -84,3 +84,7 @@
   - *Outliers*: Valores reales lejanos que rompen la escala. Se deben inspeccionar antes de decidir si excluir.
 - **Efecto de enmascaramiento (*Masking Effect*)**:
   - Ocurre cuando un grupo de outliers distorsiona la media y covarianza ocultando a otros outliers. Solución: Distancia de Mahalanobis con estimadores robustos MVE y MCD.
+- **Transformación de datos (Chan, Badano y Rey, 2019)**:
+  - *Objetivos*: Hacer comparables magnitudes, modificar escala de medición y satisfacer propiedades estadísticas (normalidad).
+  - *Métodos por variables*: $Z$-score, Min-Max, logarítmica $\log(X+1)$, discretización (`cut`, `qcut`), dummies (`get_dummies`) y fechas (`to_datetime`).
+  - *Métodos por individuo*: Centrado y porcentajes por fila.

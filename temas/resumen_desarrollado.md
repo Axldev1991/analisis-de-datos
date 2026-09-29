@@ -393,3 +393,27 @@ Los valores faltantes (fantasmas o no respuesta) se clasifican según el mecanis
 En análisis multivariado, el **efecto de enmascaramiento** ocurre cuando un grupo de *outliers* altera fuertemente las estimaciones clásicas de la media y la matriz de covarianzas, haciendo que **otros outliers queden ocultos e invisibles** ante los métodos convencionales.
 
 - *Solución*: Utilizar técnicas de **Estadística Robusta** como la **Distancia de Mahalanobis** basada en estimadores de alta ruptura como **MVE** (*Minimum Volume Ellipsoid*) o **MCD** (*Minimum Covariance Determinant*).
+
+---
+
+### 4.6 Transformación de Datos (Por Variables y por Individuos)
+
+> *"En algunas ocasiones, para optimizar el análisis de la información disponible, es conveniente realizar transformaciones a los datos. Las transformaciones pueden ser por filas o por columnas, o sea por individuos o por variables, dependiendo de los objetivos de las mismas."*  
+> — **Chan, Badano y Rey (2019)**
+
+#### Objetivos más Usuales de la Transformación:
+1. **Hacer comparables las magnitudes**: Eliminar distorsiones causadas por distintas unidades de medida (ej: comparar peso en kg con altura en cm).
+2. **Modificar la escala de medición**: Convertir escalas continuas a categorías ordinales (*discretización/binning*) o viceversa.
+3. **Satisfacer propiedades estadísticas**: Normalizar distribuciones asimétricas (mediante logaritmo) o estabilizar la varianza.
+
+#### Clasificación de las Transformaciones:
+- **Transformaciones por Variables (Columnas)**:
+  - **Estandarización $Z$-score**: $Z = \frac{X - \mu}{\sigma}$ (media 0, desvío 1).
+  - **Normalización Min-Max**: $X_{norm} = \frac{X - X_{min}}{X_{max} - X_{min}}$ (comprime al rango $[0, 1]$).
+  - **Transformación Logarítmica**: $X' = \log(X + 1)$ (suaviza asimetría positiva a derecha).
+  - **Cuantitativas a Ordinales (*Discretización*)**: Convertir edad continua en rangos categóricos ("Joven", "Adulto", "Adulto Mayor") mediante `pd.cut()` o `pd.qcut()`.
+  - **Ordinales/Categóricas a Cuantitativas**: Asignar valores numéricos o codificar en dummies (`pd.get_dummies()`).
+  - **String a Datetime**: Convertir cadenas de texto a objetos temporales (`pd.to_datetime()`) para habilitar el accesor `.dt`.
+- **Transformaciones por Individuos (Filas)**:
+  - Operaciones centradas en cada registro individual (ej: porcentajes por fila, centrados respecto a la media del sujeto).
+
