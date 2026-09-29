@@ -49,7 +49,7 @@ print(f"Valores nulos (NaN): {nulos}")
 
 
 # ==============================================================================
-# 0. CARGA DE DATOS Y LIMPIEZA INICIAL
+# 0. CARGA DE DATOS Y LIMPIEZA INICIAL (ORTIVA)
 # ==============================================================================
 
 # Cargar la base individual de la EPH (3er Trimestre 2024)
