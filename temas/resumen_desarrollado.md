@@ -320,15 +320,26 @@ A diferencia de NumPy (que alinea por posición fija), Pandas realiza **alineaci
 
 ### 3.5 Selección con `loc` e `iloc`
 
-| Método | Tipo de Selección | Ejemplo de Sintaxis |
-| :--- | :--- | :--- |
-| **`.loc[]`** | Basada estrictamente en **etiquetas / nombres** de filas y columnas | `df.loc[0:2, ['Candidata', 'Puntaje']]` |
-| **`.iloc[]`** | Basada estrictamente en **posiciones enteras** (0-based) | `df.iloc[0:2, 0:2]` |
+En Pandas, **`.loc[]`** e **`.iloc[]`** son indexadores explícitos que resuelven la ambigüedad al seleccionar datos en `Series` y `DataFrame`.
 
-```python
-# Filtrado booleano combinado
-destacadas = df.loc[df["Puntaje"] >= 88, ["Candidata", "Puntaje"]]
-```
+1. **`.loc[]` (*Location by Label*)**:
+   - **Mecanismo**: Selección basada **estrictamente en nombres o etiquetas** del índice de filas y nombres de columnas.
+   - **Comportamiento en Slices (`a:b`)**: Es **INCLUSIVO en ambos extremos** (incluye tanto la fila/columna `a` como la `b`).
+   - **Filtrado Booleano**: Admite condiciones lógicas vectoriales (ej. `df.loc[df["Puntaje"] >= 80, ["Candidata"]]`).
+
+2. **`.iloc[]` (*Integer Location*)**:
+   - **Mecanismo**: Selección basada **estrictamente en posiciones enteras fijas** (base cero: $0, 1, 2, \dots$), ignorando los nombres de las etiquetas.
+   - **Comportamiento en Slices (`a:b`)**: Es **EXCLUSIVO en el extremo superior** (incluye `a`, **excluye `b`**), respetando la convención estándar del *slicing* de Python.
+
+#### Tabla Comparativa:
+
+| Criterio | `.loc[]` | `.iloc[]` |
+| :--- | :--- | :--- |
+| **Referencia** | Etiquetas / Nombres | Posiciones Enteras (0, 1, 2...) |
+| **Límite de Slicing (`a:b`)** | **Inclusivo** en ambos lados (`a` y `b`) | **Exclusivo** a derecha (incluye `a`, excluye `b`) |
+| **Soporta Máscara Booleana** | Sí (`df.loc[df["A"] > 5]`) | No directamente (requiere vectores `.values` o enteros) |
+| **Ejemplo de Uso** | `df.loc[0:2, ["Nombre", "Edad"]]` | `df.iloc[0:2, 0:2]` |
+
 
 ---
 
