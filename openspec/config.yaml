@@ -1,0 +1,4 @@
+project: analisis-de-datos
+version: 1.0.0
+persistence: openspec
+strict_tdd: false
