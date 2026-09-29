@@ -14,7 +14,11 @@ print("="*60)
 print("EJERCICIOS CLASE 4 - ANÁLISIS UNIVARIADO, MULTIVARIADO Y ESTADÍSTICA")
 print("="*60)
 
-df_ind = pd.read_csv(INDIVIDUAL_PATH, sep=';', low_memory=False)
+# Cargar base individual y desfragmentar
+df_ind = pd.read_csv(INDIVIDUAL_PATH, sep=';', low_memory=False).copy()
+
+# Normalizar edad (CH06 = -1 indica menores de 1 año en EPH)
+df_ind['CH06_CORREGIDA'] = np.maximum(df_ind['CH06'], 0)
 
 # -------------------------------------------------------------
 # 1. Análisis Univariado y Multivariado (P21, P47T, NIVEL_ED, PP3E_TOT)
@@ -27,17 +31,17 @@ ocupados_p21 = df_ind[df_ind['P21'] > 0].copy()
 # a. Media de ingresos P21 según Nivel Educativo (NIVEL_ED) (Simple y Ponderada por PONDIIO)
 print("\n--- a) Media de Ingresos P21 según Nivel Educativo ---")
 
-def mean_weighted(group, val_col, weight_col):
-    return (group[val_col] * group[weight_col]).sum() / group[weight_col].sum()
+def calc_weighted_mean_p21(g):
+    return (g['P21'] * g['PONDIIO']).sum() / g['PONDIIO'].sum()
 
 p21_simple_ned = ocupados_p21.groupby('NIVEL_ED')['P21'].mean()
-p21_pond_ned = ocupados_p21.groupby('NIVEL_ED').apply(mean_weighted, 'P21', 'PONDIIO')
+p21_pond_ned = ocupados_p21.groupby('NIVEL_ED').apply(calc_weighted_mean_p21)
 
 df_ned_res = pd.DataFrame({
     'Media Simple ($)': p21_simple_ned,
     'Media Ponderada ($)': p21_pond_ned
 })
-# Diccionario explicativo de etiquetas de NIVEL_ED en EPH
+
 labels_ned = {
     1: '1- Primaria Incompleta',
     2: '2- Primaria Completa',
@@ -53,9 +57,12 @@ print(df_ned_res.to_string())
 # b. Media de P47T (Ingreso Total Individual) según la Década de Vida (ponderada por PONDERA)
 print("\n--- b) Media de Ingreso Total Individual (P47T) según Década de Vida ---")
 df_p47t_val = df_ind[df_ind['P47T'] > 0].copy()
-df_p47t_val['DECADA_VIDA'] = (df_p47t_val['CH06'] // 10) * 10
+df_p47t_val['DECADA_VIDA'] = (df_p47t_val['CH06_CORREGIDA'] // 10) * 10
 
-p47t_pond_decada = df_p47t_val.groupby('DECADA_VIDA').apply(mean_weighted, 'P47T', 'PONDERA')
+def calc_weighted_mean_p47t(g):
+    return (g['P47T'] * g['PONDERA']).sum() / g['PONDERA'].sum()
+
+p47t_pond_decada = df_p47t_val.groupby('DECADA_VIDA').apply(calc_weighted_mean_p47t)
 print(p47t_pond_decada.to_frame('Media Ponderada P47T ($)').to_string())
 
 # c. Medidas de Tendencia Central para P21
@@ -102,8 +109,7 @@ print("\n[3] Pruebas Estadísticas Avanzadas:")
 
 # A. V de Cramer entre NIVEL_ED y ESTADO
 print("\n--- A) V de Cramer (Nivel Educativo vs Estado Ocupacional) ---")
-# Filtrar población en edad de trabajar (15+ años)
-df_act = df_ind[df_ind['CH06'] >= 15].copy()
+df_act = df_ind[df_ind['CH06_CORREGIDA'] >= 15].copy()
 tabla_contingencia = pd.crosstab(df_act['NIVEL_ED'], df_act['ESTADO'])
 chi2, p_val_chi2, dof, _ = stats.chi2_contingency(tabla_contingencia)
 n_obs = tabla_contingencia.sum().sum()
@@ -134,20 +140,14 @@ if p_val_ttest < 0.05:
 # -------------------------------------------------------------
 print("\n[4] Cálculo de la Tasa de Desocupación Ponderada:")
 
-# En EPH: ESTADO == 1 (Ocupados), ESTADO == 2 (Desocupados)
 pea_df = df_ind[df_ind['ESTADO'].isin([1, 2])].copy()
 
-# Cálculo Ponderado usando PONDERA
 ocupados_pond = pea_df[pea_df['ESTADO'] == 1]['PONDERA'].sum()
 desocupados_pond = pea_df[pea_df['ESTADO'] == 2]['PONDERA'].sum()
 pea_total_pond = ocupados_pond + desocupados_pond
 
 tasa_desocupacion_pond = (desocupados_pond / pea_total_pond) * 100
-
-# Cálculo Muestral (Sin ponderar)
-ocupados_raw = (pea_df['ESTADO'] == 1).sum()
-desocupados_raw = (pea_df['ESTADO'] == 2).sum()
-tasa_desocupacion_raw = (desocupados_raw / len(pea_df)) * 100
+tasa_desocupacion_raw = ((pea_df['ESTADO'] == 2).sum() / len(pea_df)) * 100
 
 print(f"• Población Económicamente Activa (PEA) Muestral: {len(pea_df):,} personas")
 print(f"• PEA Ponderada (Estimación Poblacional): {pea_total_pond:,.0f} personas")

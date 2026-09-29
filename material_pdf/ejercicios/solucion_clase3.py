@@ -10,10 +10,14 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 INDIVIDUAL_PATH = os.path.join(BASE_DIR, 'usu_individual_T324.txt')
 
 print("="*60)
-print("EJERCICIOS CLASE 3 - LIMPIEZA Y TRATMIDE DE DATOS (EPH)")
+print("EJERCICIOS CLASE 3 - LIMPIEZA Y TRATAMIENTO DE DATOS (EPH)")
 print("="*60)
 
-df_ind = pd.read_csv(INDIVIDUAL_PATH, sep=';', low_memory=False)
+# Cargar DataFrame y hacer una copia desfragmentada
+df_ind = pd.read_csv(INDIVIDUAL_PATH, sep=';', low_memory=False).copy()
+
+# Normalizar edad: en EPH los menores de 1 año figuran con CH06 = -1
+df_ind['CH06_CORREGIDA'] = np.maximum(df_ind['CH06'], 0)
 
 # -------------------------------------------------------------
 # 1. Analizar la columna P21 (Ingreso de la Ocupación Principal)
@@ -80,17 +84,17 @@ print("3. Para análisis resumidos, priorizar la MEDIANA sobre la MEDIA ya que e
 # -------------------------------------------------------------
 print("\n[3] Transformaciones sobre la edad (CH06):")
 
-# A. Agrupación por Décadas de Vida
-df_ind['DECADA_VIDA'] = (df_ind['CH06'] // 10) * 10
+# A. Agrupación por Décadas de Vida (usando la edad corregida >= 0)
+df_ind['DECADA_VIDA'] = (df_ind['CH06_CORREGIDA'] // 10) * 10
 print("\n• Conteo de personas por Década de Vida:")
 print(df_ind['DECADA_VIDA'].value_counts().sort_index().to_string())
 
-# B. Categorización por Grupos Etarios Etapa de Vida
+# B. Categorización por Grupos Etarios
 bins = [-1, 14, 29, 64, 120]
 labels = ['0-14 (Niños/Adolescentes)', '15-29 (Jóvenes)', '30-64 (Adultos)', '65+ (Adultos Mayores)']
-df_ind['GRUPO_ETARIO'] = pd.cut(df_ind['CH06'], bins=bins, labels=labels)
+df_ind['GRUPO_ETARIO'] = pd.cut(df_ind['CH06_CORREGIDA'], bins=bins, labels=labels)
 
 print("\n• Distribución por Grupo Etario:")
 print(df_ind['GRUPO_ETARIO'].value_counts().sort_index().to_string())
 
-print("\nConclusión Clase 3: Se realizó el diagnóstico completo de P21, la imputación por media ponderada, la detección de outliers y las transformaciones etarias.")
+print("\nConclusión Clase 3: Se realizó el diagnóstico completo de P21, la imputación por media ponderada, la detección de outliers y las transformaciones etarias sin errores de bordes.")
