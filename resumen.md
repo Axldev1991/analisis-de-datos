@@ -58,7 +58,8 @@
 
 ## 3. Pandas
 
-- **Enfoque de Análisis**: Orientada al manejo de estructuras tabulares de alto nivel y código abierto construida sobre NumPy.
+- **¿Qué es y para qué sirve?**: Librería estándar de código abierto y de alto nivel construida sobre NumPy para la manipulación, limpieza, preparación (*data wrangling*) y análisis de datos tabulares. Sirve para cargar datos multiformato (`read_csv`, `read_excel`), realizar uniones tipo SQL (`merge`), agrupamientos (`groupby`), filtrados complejos y preparar datasets para Machine Learning.
+- **Enfoque de Análisis**: Orientada al manejo de estructuras tabulares heterogéneas de alto nivel con etiquetas explícitas en filas y columnas.
 - **Estructuras Clave**:
   - `Series`: Vector 1D etiquetado.
   - `DataFrame`: Tabla 2D de columnas `Series` compartiendo índice.

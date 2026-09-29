@@ -31,10 +31,11 @@
    - [2.5 Ensamblaje de Matrices y Funciones Generadoras](#25-ensamblaje-de-matrices-y-funciones-generadoras)
    - [2.6 Pipelines de Computación Numérica](#26-pipelines-de-computación-numérica)
 3. [Sección 3: Pandas](#sección-3-pandas)
-   - [3.1 El Enfoque en Pandas y Manejo de Estructuras Tabulares](#31-el-enfoque-en-pandas-y-manejo-de-estructuras-tabulares)
-   - [3.2 Las Estructuras Clave: `Series` y `DataFrame`](#32-las-estructuras-clave-series-y-dataframe)
-   - [3.3 Vectorización y Alineación por Índices](#33-vectorización-y-alineación-por-índices)
-   - [3.4 Selección con `loc` e `iloc`](#34-selección-con-loc-e-iloc)
+   - [3.1 ¿Qué es Pandas y para qué sirve?](#31-qué-es-pandas-y-para-qué-sirve)
+   - [3.2 El Enfoque en Pandas y Manejo de Estructuras Tabulares](#32-el-enfoque-en-pandas-y-manejo-de-estructuras-tabulares)
+   - [3.3 Las Estructuras Clave: `Series` y `DataFrame`](#33-las-estructuras-clave-series-y-dataframe)
+   - [3.4 Vectorización y Alineación por Índices](#34-vectorización-y-alineación-por-índices)
+   - [3.5 Selección con `loc` e `iloc`](#35-selección-con-loc-e-iloc)
 4. [Sección 4: Limpieza y Preprocesamiento de Datos (Data Cleaning)](#sección-4-limpieza-y-preprocesamiento-de-datos-data-cleaning)
    - [4.1 Las 5 Etapas del Ciclo de Datos](#41-las-5-etapas-del-ciclo-de-datos)
    - [4.2 Sobre-representación y Duplicación de Datos](#42-sobre-representación-y-duplicación-de-datos)
@@ -275,13 +276,26 @@ resultado = norm_pipeline.mean(axis=0)
 
 ## Sección 3: Pandas
 
-### 3.1 El Enfoque en Pandas y Manejo de Estructuras Tabulares
+### 3.1 ¿Qué es Pandas y para qué sirve?
 
-**Pandas** es una librería de código abierto y de alto nivel construida sobre NumPy. Mientras NumPy maneja bloques numéricos puros, Pandas está orientada a manejar **estructuras tabulares heterogéneas** con etiquetas explícitas en filas (índices) y columnas.
+**Pandas** es la librería estándar de código abierto y de alto nivel en Python para la **manipulación, limpieza, transformación y análisis de datos estructurados y tabulares**. Construida sobre la infraestructura de cálculo numérico de NumPy, proporciona estructuras flexibles enriquecidas con etiquetas explícitas en filas (índices) y columnas.
+
+#### ¿Para qué sirve Pandas?
+1. **Ingesta y Carga Multiformato de Datos**: Importa y exporta datos fácilmente desde/hacia archivos CSV, Excel (`.xlsx`), JSON, bases de datos SQL, Parquet y HTML (`pd.read_csv()`, `pd.read_excel()`).
+2. **Limpieza y Preparación Tabular (*Data Wrangling*)**: Facilita el tratamiento de valores faltantes (`dropna`, `fillna`), eliminación de duplicados (`drop_duplicates`), transformaciones de tipo de dato y filtrado de datos inconsistentes.
+3. **Agrupamiento y Agregaciones Complejas (*Split-Apply-Combine*)**: Permite agrupar registros por categorías (`groupby()`) y aplicar agregaciones estadísticas como promedios, sumas, desviaciones y recuentos sobre subconjuntos.
+4. **Unión y Combinación de Datasets**: Combina tablas a través de uniones relacionales tipo SQL (`pd.merge`) o apilados vectoriales (`pd.concat`) mediante claves comunes.
+5. **Enriquecimiento y Extracción de Atributos (*Feature Engineering*)**: Procesa cadenas de texto (`.str`) y fechas (`.dt`) de forma vectorizada para alimentar modelos analíticos y de Machine Learning en Scikit-Learn.
 
 ---
 
-### 3.2 Las Estructuras Clave: `Series` y `DataFrame`
+### 3.2 El Enfoque en Pandas y Manejo de Estructuras Tabulares
+
+Mientras NumPy opera sobre bloques numéricos puros homogéneos, Pandas está orientada a manejar **estructuras tabulares heterogéneas** (columnas con distintos tipos de datos: números, texto, fechas, booleanos) con etiquetas explícitas en filas (índices) y columnas.
+
+---
+
+### 3.3 Las Estructuras Clave: `Series` y `DataFrame`
 
 1. **`Series`**: Estructura unidimensional etiquetada capaz de contener cualquier tipo de dato (`int`, `float`, `str`, `object`). Consta de dos componentes: un array de **datos** y un array de **etiquetas de índice** (`index`).
 2. **`DataFrame`**: Estructura bidimensional (tabla) compuesta por una colección ordenada de columnas `Series` que comparten un mismo índice de filas.
@@ -298,13 +312,13 @@ df = pd.DataFrame({
 
 ---
 
-### 3.3 Vectorización y Alineación por Índices
+### 3.4 Vectorización y Alineación por Índices
 
 A diferencia de NumPy (que alinea por posición fija), Pandas realiza **alineación automática basada en etiquetas de índice**. Si dos `Series` tienen índices en distinto orden, Pandas empareja las etiquetas antes de realizar la operación matemática.
 
 ---
 
-### 3.4 Selección con `loc` e `iloc`
+### 3.5 Selección con `loc` e `iloc`
 
 | Método | Tipo de Selección | Ejemplo de Sintaxis |
 | :--- | :--- | :--- |
